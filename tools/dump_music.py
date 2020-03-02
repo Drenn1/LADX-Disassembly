@@ -45,14 +45,14 @@ def getMusicLabel(index):
     return 'Music' + myhex(index+1)
 
 def getChannelLabel(musicIndex, channelIndex, cptr):
-    # HARDCODED: this is the only channel data that's shared; needs a non-local name.
+    # HARDCODED: this is the only channel data that's shared.
     if toGbPointer(cptr) == 0x4b1a:
-        return 'SharedChannelData'
+        return 'SharedMusicChannelData'
     return 'Music{0}Channel{1}'.format(myhex(musicIndex+1), myhex(channelIndex+1, 1))
 
 def getChannelDefinitionLabel(musicIndex, channelIndex, ptr):
     ptr = toGbPointer(ptr)
-    return 'channelDefinition{2}'.format(myhex(musicIndex+1), myhex(channelIndex+1, 1), myhex(ptr, 4))
+    return 'ChannelDefinition{2}'.format(myhex(musicIndex+1), myhex(channelIndex+1, 1), myhex(ptr, 4))
 
 def getLoopLabel(ptr):
     if dataSet.hasLabelAt(ptr):
@@ -60,8 +60,8 @@ def getLoopLabel(ptr):
     ptr = toGbPointer(ptr)
     return 'MusicLoop{0}'.format(myhex(ptr, 4))
 
-def getUnknownDataLabel(ptr):
-    return 'unknownData' + myhex(toGbPointer(ptr))
+def getSpeedDataLabel(ptr):
+    return 'MusicSpeedData' + myhex(toGbPointer(ptr))
 
 
 # ================================================================================
@@ -97,19 +97,6 @@ class Data:
     # Generic print functions
     def printAsByteString(d):
         return getByteString(rom[d.startAddr:d.endAddr])
-
-#    def printLabelIfAvailable(data):
-#        if data.label is None:
-#            return ''
-#        if not (data.getSize() == 0 and data.nextData is not None and data.label == data.nextData.label):
-#            # Don't print a label more than once (TODO: remove that)
-#            s = '{0}'.format(data.label)
-#            if data.label[0] != '.':
-#                s += '::'
-#            if True: # Debugging
-#                s += ' ; $' + myhex(data.startAddr, 4)
-#            return s + '\n'
-#        return ''
 
 
 # Parsing a collection of Data objects together
@@ -233,7 +220,7 @@ for j in range(len(musicPtrList)):
 
         out += '    db   $' + myhex(rom[ptr]) + '\n'
         ptr += 1
-        out += '    dw   {0}\n'.format(getUnknownDataLabel(read16(rom, ptr)))
+        out += '    dw   {0}\n'.format(getSpeedDataLabel(read16(rom, ptr)))
         ptr += 2
         for c in range(4): # Sound channels
             cptr = read16(rom, ptr)
@@ -256,21 +243,19 @@ for j in range(len(musicPtrList)):
         continue
     parsedMusicAddresses.add(ptr)
 
-    # Dump "unknown" data
-    unknownPtr = read16(rom, ptr)
-    if unknownPtr == 0:
-        print('UNKNOWN PTR NULL')
-    else:
-        unknownPtr = bankedAddress(MUSIC_BANK, unknownPtr)
-        if not dataSet.hasDataAt(unknownPtr):
-            unknownData = Data(unknownPtr, Data.printAsByteString)
-            unknownData.setLabel(getUnknownDataLabel(unknownPtr))
-            dataSet.addData(unknownData)
+    # Dump "speed" data
+    speedPtr = read16(rom, ptr)
+    assert(speedPtr != 0)
+    speedPtr = bankedAddress(MUSIC_BANK, speedPtr)
+    if not dataSet.hasDataAt(speedPtr):
+        speedData = Data(speedPtr, Data.printAsByteString)
+        speedData.setLabel(getSpeedDataLabel(speedPtr))
+        dataSet.addData(speedData)
 
     # Dump sound channels
     ptr += 2
 
-    def parseSoundChannelData(c, cptr):
+    def parseSoundChannelData(channel, cptr):
         if dataSet.hasDataAt(cptr):
             return # Already processed this
 
@@ -303,16 +288,64 @@ for j in range(len(musicPtrList)):
 
         def printSoundChannelDefinitionData(data):
             out = ''
-            return data.printAsByteString()
+            ptr = data.startAddr
+
+            def addByteOperand():
+                nonlocal out, ptr
+                b = rom[ptr]
+                ptr += 1
+                out += ', ${0}'.format(myhex(b))
+
+            def addWordOperand():
+                nonlocal out, ptr
+                b = read16(rom, ptr)
+                ptr += 2
+                out += ', ${0}'.format(myhex(b, 4))
+
+            while True:
+                if ptr >= data.endAddr:
+                    break
+                op = rom[ptr]
+                ptr += 1
+                out += '    db   ${0}'.format(myhex(op))
+                if op == 0:
+                    out += '\n'
+                    break
+                elif (op >= 0x94 and op <= 0x9a) or op == 0x9c:
+                    out += '\n'
+                elif op == 0x9b:
+                    addByteOperand()
+                    out += '\n'
+                elif op == 0x9d:
+                    addByteOperand()
+                    addByteOperand()
+                    addByteOperand()
+                    out += '\n'
+                elif op == 0x9e:
+                    w = read16(rom, ptr)
+                    ptr += 2
+                    out += '\n    dw   ${0}\n'.format(myhex(w, 4))
+                elif op == 0x9f:
+                    addByteOperand()
+                    out += '\n'
+                elif op >= 0xa0 and op <= 0xaf:
+                    out += '\n'
+                else:
+                    out += '\n'
+            assert(ptr <= data.endAddr)
+            if ptr < data.endAddr:
+                out += '; UNREFERENCED DATA\n'
+                out += getByteString(rom[ptr:data.endAddr])
+            return out
 
         data = Data(cptr, printSoundChannelData)
         data.musicIndex = i
-        data.channelIndex = c
+        data.channelIndex = channel
         dataSet.addData(data)
-        if c == -1:
+        if channel == -1:
             label = getLoopLabel(cptr)
         else:
-            label = getChannelLabel(i, c, cptr)
+            label = getChannelLabel(i, channel, cptr)
         dataSet.addLabel(cptr, label)
 
         # Dump "sound definitions"
@@ -324,15 +357,10 @@ for j in range(len(musicPtrList)):
             elif dptr == 0xffff:
                 loopPtr = bankedAddress(MUSIC_BANK, read16(rom, cptr))
                 cptr += 2
-                #dataSet.addLabel(loopPtr, getLoopLabel(loopPtr))
                 parseSoundChannelData(-1, loopPtr) # Recursive call
-                #d = Data(loopPtr, printSoundChannelData)
-                #d.musicIndex = i
-                #d.channelIndex = c
-                #dataSet.addData(d)
                 break
             else:
-                label = getChannelDefinitionLabel(i, c, dptr)
+                label = getChannelDefinitionLabel(i, channel, dptr)
                 if not dataSet.hasLabel(label):
                     dptr = bankedAddress(MUSIC_BANK, dptr)
                     data = Data(dptr, printSoundChannelDefinitionData)
@@ -352,7 +380,7 @@ for j in range(len(musicPtrList)):
 
 # Hardcoded offsets for start and end of sound data segments
 f = open('src/data/music/music_tracks_data_3.asm', 'w')
-s = dataSet.printDataRange(0x6c9c2, 0x6ce2c)
+s = dataSet.printDataRange(0x6caaa, 0x6ce2c)
 f.write(s)
 f.close()
 

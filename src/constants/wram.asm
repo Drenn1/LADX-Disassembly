@@ -768,8 +768,8 @@ wFinalNightmareForm:: ; D219
 ; Unlabeled
 ds $D300 - $D21A
 
-wD300:: ; D300
-  ; First byte of music data
+wMusicTranspose:: ; D300
+  ; Note transpose value applied to all channels. Should be multiple of 2.
   ds 1
 
 wMusicSpeedPointer:: ; D301
@@ -786,6 +786,7 @@ wD310:: ; D310
   ds 2
 
 wD312:: ; D312
+  ; Copied from D313. A counter?
   ds 1
 
 wD313:: ; D313
@@ -800,16 +801,18 @@ wD316:: ; D316
   ds 3
 
 wD319:: ; D319
-  ds 1
-
-wD31A:: ; D31A
+  ; Points to frequency data for NRx3 and NRx4
   ds 2
+
+wD31B:: ; D31B
+  ds 1
 
 wD31C:: ; D31C
   ; Loop pointer for sound definition data?
   ds 2
 
 wD31E:: ; D31E
+  ; Incremented each frame?
   ds 1
 
 wD31F:: ; D31F
@@ -908,7 +911,7 @@ wD3CB:: ; D3CB
 ds 2
 
 wMusicMode:: ; D3CE
-  ; idk
+  ; Music disabled when this is 0?
   ds 1
 
 ; Unlabeled
