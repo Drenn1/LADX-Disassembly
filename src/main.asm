@@ -189,8 +189,10 @@ include "code/entities/anglers_tunnel_door.asm"
 
 section "bank1B",romx[$4000],bank[$1B]
 include "code/audio/music_1.asm"
-section "Music tracks section 1",romx[$5000],bank[$1B]
+section "Music tracks section 1",romx[$5000],bank[$1B] ; TODO: organize these better
 include "data/music/music_tracks_data_1.asm"
+section "Music tracks section 4",romx[$7100],bank[$1B]
+include "data/music/music_tracks_data_4.asm"
 
 section "bank1C",romx[$4000],bank[$1C]
 db $01 ; Extra byte present in the original ROM

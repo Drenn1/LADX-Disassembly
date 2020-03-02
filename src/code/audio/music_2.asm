@@ -29,7 +29,7 @@ PlayMusicTrack_1E_EntryPoint::
     ld   hl, wActiveMusicTrack                                ; $401E: $21 $68 $D3
     ld   a, [hl+]                                 ; $4021: $2A
     and  a                                        ; $4022: $A7
-    jr   nz, jr_01E_4039                          ; $4023: $20 $14
+    jr   nz, BeginMusicTrack_1E                          ; $4023: $20 $14
 
     call func_01E_403F                            ; $4025: $CD $3F $40
 
@@ -44,7 +44,7 @@ StopAllActiveAudioAndReturn::
     ld   [wActiveNoiseSfx], a                     ; $4035: $EA $78 $D3
     ret                                           ; $4038: $C9
 
-jr_01E_4039:
+BeginMusicTrack_1E::
     ld   [hl], a                                  ; $4039: $77
     call func_01E_4163                            ; $403A: $CD $63 $41
     jr   jr_01E_4028                              ; $403D: $18 $E9
@@ -193,7 +193,7 @@ jr_01E_4137:
 
 func_01E_4163::
     ld   b, a                                     ; $4163: $47
-    ld   a, [$D3CE]                               ; $4164: $FA $CE $D3
+    ld   a, [wMusicMode]                               ; $4164: $FA $CE $D3
     and  a                                        ; $4167: $A7
     jp   nz, StopAllActiveAudioAndReturn          ; $4168: $C2 $2B $40
 
@@ -735,7 +735,7 @@ func_01E_4581::
     and  a                                        ; $4585: $A7
     ret  z                                        ; $4586: $C8
 
-    ld   a, [$D3CE]                               ; $4587: $FA $CE $D3
+    ld   a, [wMusicMode]                               ; $4587: $FA $CE $D3
     and  a                                        ; $458A: $A7
     jp   nz, StopAllActiveAudioAndReturn                       ; $458B: $C2 $2B $40
 
@@ -1274,7 +1274,7 @@ func_01E_4841::
 
 label_01E_4854:
     xor  a                                        ; $4854: $AF
-    ld   [$D3CE], a                               ; $4855: $EA $CE $D3
+    ld   [wMusicMode], a                               ; $4855: $EA $CE $D3
     ldh  a, [$FFBF]                               ; $4858: $F0 $BF
     ld   [wActiveMusicTrack], a                               ; $485A: $EA $68 $D3
     jp   PlayMusicTrack_1E_EntryPoint             ; $485D: $C3 $1E $40
