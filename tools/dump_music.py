@@ -63,6 +63,16 @@ def getLoopLabel(ptr):
 def getSpeedDataLabel(ptr):
     return 'MusicSpeedData' + myhex(toGbPointer(ptr))
 
+NOTE_STRINGS = [ 'C_','C#','D_','D#','E_','F_','F#','G_','G#','A_','A#','B_' ]
+
+def getNoteName(note):
+    assert(note >= 2 and note <= 0x8f)
+    note -= 2
+    octave = note // 24 + 1
+    if note % 2 == 1:
+        return NOTE_STRINGS[(note//2) % 12] + str(octave) + '+1'
+    else:
+        return NOTE_STRINGS[(note//2) % 12] + str(octave)
 
 # ================================================================================
 # Data Class
@@ -307,30 +317,43 @@ for j in range(len(musicPtrList)):
                     break
                 op = rom[ptr]
                 ptr += 1
-                out += '    db   ${0}'.format(myhex(op))
                 if op == 0:
+                    out += '    db   ${0}'.format(myhex(op))
                     out += '\n'
                     break
                 elif (op >= 0x94 and op <= 0x9a) or op == 0x9c:
+                    out += '    db   ${0}'.format(myhex(op))
                     out += '\n'
                 elif op == 0x9b:
+                    out += '    db   ${0}'.format(myhex(op))
                     addByteOperand()
                     out += '\n'
                 elif op == 0x9d:
+                    out += '    db   ${0}'.format(myhex(op))
                     addByteOperand()
                     addByteOperand()
                     addByteOperand()
                     out += '\n'
                 elif op == 0x9e:
+                    out += '    db   ${0}'.format(myhex(op))
                     w = read16(rom, ptr)
                     ptr += 2
                     out += '\n    dw   ${0}\n'.format(myhex(w, 4))
                 elif op == 0x9f:
+                    out += '    db   ${0}'.format(myhex(op))
                     addByteOperand()
                     out += '\n'
                 elif op >= 0xa0 and op <= 0xaf:
+                    out += '    db   ${0}'.format(myhex(op))
+                    out += '\n'
+                elif op == 1:
+                    out += '    db   $01'
+                    out += '\n'
+                elif op >= 2 and op <= 0x8f and data.channelIndex != 3:
+                    out += '    db   {0}'.format(getNoteName(op))
                     out += '\n'
                 else:
+                    out += '    db   ${0} ; (UNKNOWN OP)'.format(myhex(op))
                     out += '\n'
             assert(ptr <= data.endAddr)
             if ptr < data.endAddr:
@@ -364,6 +387,7 @@ for j in range(len(musicPtrList)):
                 if not dataSet.hasLabel(label):
                     dptr = bankedAddress(MUSIC_BANK, dptr)
                     data = Data(dptr, printSoundChannelDefinitionData)
+                    data.channelIndex = channel
                     data.setLabel(label)
                     dataSet.addData(data)
 

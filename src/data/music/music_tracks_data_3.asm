@@ -47,41 +47,41 @@ ChannelDefinition4b51:: ; $6cb51
     db   $9d, $60, $21, $00
     db   $96
     db   $a2
-    db   $5c
-    db   $5e
+    db   A_4
+    db   A#4
     db   $aa
-    db   $60
-    db   $62
-    db   $64
+    db   B_4
+    db   C_5
+    db   C#5
     db   $ae
-    db   $66
+    db   D_5
     db   $95
     db   $00
 ChannelDefinition4b61:: ; $6cb61
     db   $9d, $80, $21, $41
     db   $a2
-    db   $4a
-    db   $4c
+    db   C_4
+    db   C#4
     db   $aa
-    db   $4e
-    db   $50
-    db   $52
+    db   D_4
+    db   D#4
+    db   E_4
     db   $ae
-    db   $54
+    db   F_4
     db   $00
 ChannelDefinition4b6f:: ; $6cb6f
     db   $9d, $c1, $6e, $20
     db   $99
     db   $a2
-    db   $3c
-    db   $3e
+    db   F_3
+    db   F#3
     db   $aa
-    db   $40
-    db   $42
-    db   $44
+    db   G_3
+    db   G#3
+    db   A_3
     db   $9a
     db   $a5
-    db   $46
+    db   A#3
     db   $a4
     db   $01
     db   $00
@@ -89,12 +89,12 @@ ChannelDefinition4b81:: ; $6cb81
     db   $a3
     db   $01
     db   $aa
-    db   $15
-    db   $1a
-    db   $1a
+    db   $15 ; (UNKNOWN OP)
+    db   $1a ; (UNKNOWN OP)
+    db   $1a ; (UNKNOWN OP)
     db   $9b, $1e
     db   $a0
-    db   $15
+    db   $15 ; (UNKNOWN OP)
     db   $9c
     db   $a7
     db   $01
@@ -142,43 +142,43 @@ ChannelDefinition4bd5:: ; $6cbd5
     db   $a3
     db   $01
     db   $a2
-    db   $44
-    db   $46
+    db   A_3
+    db   A#3
     db   $a3
-    db   $4a
+    db   C_4
     db   $a2
-    db   $54
-    db   $5c
+    db   F_4
+    db   A_4
     db   $a7
-    db   $5c
+    db   A_4
     db   $a1
-    db   $58
-    db   $56
+    db   G_4
+    db   F#4
     db   $a4
-    db   $58
+    db   G_4
     db   $a2
     db   $01
-    db   $58
-    db   $5c
-    db   $5e
+    db   G_4
+    db   A_4
+    db   A#4
     db   $a3
-    db   $5c
-    db   $58
+    db   A_4
+    db   G_4
     db   $a5
-    db   $4a
+    db   C_4
     db   $a4
-    db   $7a
+    db   C_6
     db   $a7
-    db   $6c
+    db   F_5
     db   $a1
-    db   $6a
-    db   $6c
+    db   E_5
+    db   F_5
     db   $a4
-    db   $70
-    db   $62
-    db   $66
+    db   G_5
+    db   C_5
+    db   D_5
     db   $ae
-    db   $74
+    db   A_5
     db   $9c
     db   $00
 ChannelDefinition4c05:: ; $6cc05
@@ -187,50 +187,50 @@ ChannelDefinition4c05:: ; $6cc05
 ChannelDefinition4c0a:: ; $6cc0a
     db   $9b, $02
     db   $a2
-    db   $24
-    db   $2c
-    db   $32
-    db   $2c
+    db   F_2
+    db   A_2
+    db   C_3
+    db   A_2
     db   $9c
     db   $9b, $02
-    db   $24
-    db   $30
-    db   $36
-    db   $30
+    db   F_2
+    db   B_2
+    db   D_3
+    db   B_2
     db   $9c
-    db   $24
-    db   $2e
-    db   $36
-    db   $2e
-    db   $22
-    db   $2e
-    db   $34
-    db   $2e
-    db   $2c
-    db   $32
-    db   $40
-    db   $3a
-    db   $3c
-    db   $36
-    db   $32
-    db   $2c
+    db   F_2
+    db   A#2
+    db   D_3
+    db   A#2
+    db   E_2
+    db   A#2
+    db   C#3
+    db   A#2
+    db   A_2
+    db   C_3
+    db   G_3
+    db   E_3
+    db   F_3
+    db   D_3
+    db   C_3
+    db   A_2
     db   $9b, $02
-    db   $28
-    db   $2e
-    db   $36
-    db   $2e
+    db   G_2
+    db   A#2
+    db   D_3
+    db   A#2
     db   $9c
     db   $9b, $02
-    db   $28
-    db   $2e
-    db   $34
-    db   $2e
+    db   G_2
+    db   A#2
+    db   C#3
+    db   A#2
     db   $9c
     db   $9b, $04
-    db   $24
-    db   $2c
-    db   $32
-    db   $2c
+    db   F_2
+    db   A_2
+    db   C_3
+    db   A_2
     db   $9c
     db   $00
 ChannelDefinition4c3f:: ; $6cc3f
@@ -241,46 +241,46 @@ ChannelDefinition4c3f:: ; $6cc3f
     db   $ac
     db   $01
     db   $ad
-    db   $2c
-    db   $2c
+    db   A_2
+    db   A_2
     db   $ac
-    db   $2c
+    db   A_2
     db   $aa
-    db   $2c
+    db   A_2
     db   $98
     db   $ac
-    db   $32
+    db   C_3
     db   $ad
-    db   $32
-    db   $36
+    db   C_3
+    db   D_3
     db   $ac
-    db   $3a
+    db   E_3
     db   $aa
-    db   $36
+    db   D_3
     db   $a3
-    db   $32
-    db   $40
-    db   $3a
-    db   $4a
+    db   C_3
+    db   G_3
+    db   E_3
+    db   C_4
     db   $a4
-    db   $40
+    db   G_3
     db   $ac
-    db   $40
+    db   G_3
     db   $ad
-    db   $40
-    db   $42
+    db   G_3
+    db   G#3
     db   $ac
-    db   $40
+    db   G_3
     db   $aa
-    db   $3e
+    db   F#3
     db   $a4
-    db   $38
+    db   D#3
     db   $a3
-    db   $36
+    db   D_3
     db   $a7
-    db   $40
+    db   G_3
     db   $a4
-    db   $40
+    db   G_3
     db   $a7
     db   $01
     db   $00
@@ -322,33 +322,33 @@ ChannelDefinition4ca5:: ; $6cca5
     db   $a7
     db   $01
     db   $a1
-    db   $4e
+    db   D_4
     db   $aa
     db   $01
     db   $ae
-    db   $50
+    db   D#4
     db   $00
 ChannelDefinition4cb2:: ; $6ccb2
     db   $9d, $40, $00, $01
     db   $a7
     db   $01
     db   $a1
-    db   $64
+    db   C#5
     db   $aa
     db   $01
     db   $ae
-    db   $66
+    db   D_5
     db   $00
 ChannelDefinition4cbf:: ; $6ccbf
     db   $9d, $2f, $4d, $20
     db   $a7
     db   $01
     db   $a1
-    db   $5a
+    db   G#4
     db   $aa
     db   $01
     db   $ae
-    db   $5c
+    db   A_4
     db   $00
 ChannelDefinition4ccc:: ; $6cccc
     db   $a7
@@ -360,63 +360,63 @@ ChannelDefinition4ccc:: ; $6cccc
     db   $a5
     db   $01
     db   $a1
-    db   $ff
+    db   $ff ; (UNKNOWN OP)
     db   $a2
-    db   $ff
-    db   $ff
+    db   $ff ; (UNKNOWN OP)
+    db   $ff ; (UNKNOWN OP)
     db   $a1
-    db   $ff
+    db   $ff ; (UNKNOWN OP)
     db   $a2
-    db   $ff
+    db   $ff ; (UNKNOWN OP)
     db   $00
 ChannelDefinition4cde:: ; $6ccde
     db   $9d, $22, $00, $80
     db   $97
     db   $9b, $20
     db   $a1
-    db   $54
-    db   $6a
-    db   $62
-    db   $5c
-    db   $78
-    db   $70
-    db   $6a
+    db   F_4
+    db   E_5
+    db   C_5
+    db   A_4
+    db   B_5
+    db   G_5
+    db   E_5
     db   $9c
     db   $00
 ChannelDefinition4cef:: ; $6ccef
     db   $9d, $81, $00, $40
     db   $a6
-    db   $46
+    db   A#3
     db   $a0
-    db   $46
-    db   $4a
+    db   A#3
+    db   C_4
     db   $a6
-    db   $4e
+    db   D_4
     db   $a1
-    db   $4a
+    db   C_4
     db   $a3
-    db   $46
-    db   $54
-    db   $4e
-    db   $5e
+    db   A#3
+    db   F_4
+    db   D_4
+    db   A#4
     db   $a4
-    db   $54
+    db   F_4
     db   $a6
-    db   $54
+    db   F_4
     db   $a0
-    db   $54
-    db   $56
+    db   F_4
+    db   F#4
     db   $a6
-    db   $54
+    db   F_4
     db   $a1
-    db   $52
+    db   E_4
     db   $a4
-    db   $4c
+    db   C#4
     db   $a3
-    db   $4a
-    db   $54
+    db   C_4
+    db   F_4
     db   $a4
-    db   $46
+    db   A#3
     db   $a5
     db   $01
     db   $01
@@ -424,22 +424,22 @@ ChannelDefinition4cef:: ; $6ccef
     db   $9d, $61, $00, $80
     db   $97
     db   $a1
-    db   $36
+    db   D_3
     db   $a6
-    db   $36
+    db   D_3
     db   $a1
-    db   $36
+    db   D_3
     db   $a6
-    db   $36
+    db   D_3
     db   $a1
-    db   $36
+    db   D_3
     db   $a2
-    db   $36
-    db   $36
+    db   D_3
+    db   D_3
     db   $a1
-    db   $36
+    db   D_3
     db   $a2
-    db   $36
+    db   D_3
     db   $98
     db   $00
 ; UNREFERENCED DATA
@@ -449,7 +449,7 @@ ChannelDefinition4d3f:: ; $6cd3f
     db   $97
     db   $9b, $02
     db   $aa
-    db   $30
+    db   B_2
     db   $01
     db   $a0
     db   $01
@@ -459,7 +459,7 @@ ChannelDefinition4d3f:: ; $6cd3f
     db   $a6
     db   $01
     db   $aa
-    db   $30
+    db   B_2
     db   $01
     db   $a0
     db   $01
@@ -467,7 +467,7 @@ ChannelDefinition4d3f:: ; $6cd3f
     db   $01
     db   $9b, $02
     db   $aa
-    db   $30
+    db   B_2
     db   $01
     db   $a0
     db   $01
@@ -478,7 +478,7 @@ ChannelDefinition4d3f:: ; $6cd3f
     db   $01
     db   $9b, $02
     db   $aa
-    db   $30
+    db   B_2
     db   $01
     db   $a0
     db   $01
@@ -488,7 +488,7 @@ ChannelDefinition4d3f:: ; $6cd3f
     db   $a6
     db   $01
     db   $aa
-    db   $30
+    db   B_2
     db   $01
     db   $a0
     db   $01
@@ -496,7 +496,7 @@ ChannelDefinition4d3f:: ; $6cd3f
     db   $01
     db   $9b, $02
     db   $aa
-    db   $30
+    db   B_2
     db   $01
     db   $a0
     db   $01
@@ -506,7 +506,7 @@ ChannelDefinition4d3f:: ; $6cd3f
     db   $a6
     db   $01
     db   $aa
-    db   $30
+    db   B_2
     db   $01
     db   $a0
     db   $01
@@ -514,37 +514,37 @@ ChannelDefinition4d3f:: ; $6cd3f
 ChannelDefinition4d88:: ; $6cd88
     db   $9b, $07
     db   $a1
-    db   $15
-    db   $15
-    db   $15
-    db   $15
-    db   $ff
-    db   $15
-    db   $15
-    db   $15
-    db   $15
-    db   $15
-    db   $15
-    db   $15
-    db   $ff
-    db   $15
-    db   $15
-    db   $1a
+    db   $15 ; (UNKNOWN OP)
+    db   $15 ; (UNKNOWN OP)
+    db   $15 ; (UNKNOWN OP)
+    db   $15 ; (UNKNOWN OP)
+    db   $ff ; (UNKNOWN OP)
+    db   $15 ; (UNKNOWN OP)
+    db   $15 ; (UNKNOWN OP)
+    db   $15 ; (UNKNOWN OP)
+    db   $15 ; (UNKNOWN OP)
+    db   $15 ; (UNKNOWN OP)
+    db   $15 ; (UNKNOWN OP)
+    db   $15 ; (UNKNOWN OP)
+    db   $ff ; (UNKNOWN OP)
+    db   $15 ; (UNKNOWN OP)
+    db   $15 ; (UNKNOWN OP)
+    db   $1a ; (UNKNOWN OP)
     db   $9c
     db   $9b, $02
-    db   $ff
-    db   $ff
-    db   $15
-    db   $15
+    db   $ff ; (UNKNOWN OP)
+    db   $ff ; (UNKNOWN OP)
+    db   $15 ; (UNKNOWN OP)
+    db   $15 ; (UNKNOWN OP)
     db   $9c
-    db   $ff
-    db   $ff
-    db   $15
-    db   $ff
-    db   $15
-    db   $ff
-    db   $ff
-    db   $15
+    db   $ff ; (UNKNOWN OP)
+    db   $ff ; (UNKNOWN OP)
+    db   $15 ; (UNKNOWN OP)
+    db   $ff ; (UNKNOWN OP)
+    db   $15 ; (UNKNOWN OP)
+    db   $ff ; (UNKNOWN OP)
+    db   $ff ; (UNKNOWN OP)
+    db   $15 ; (UNKNOWN OP)
     db   $00
 Music17:: ; $6cdac
     db   $00
@@ -565,56 +565,56 @@ Music17Channel3:: ; $6cdc3
 ChannelDefinition4dc9:: ; $6cdc9
     db   $9d, $43, $00, $80
     db   $a7
-    db   $4c
-    db   $4c
-    db   $4c
-    db   $4c
-    db   $4a
-    db   $4a
-    db   $4a
-    db   $4a
-    db   $46
-    db   $46
-    db   $46
-    db   $46
-    db   $42
-    db   $46
-    db   $4a
-    db   $50
+    db   C#4
+    db   C#4
+    db   C#4
+    db   C#4
+    db   C_4
+    db   C_4
+    db   C_4
+    db   C_4
+    db   A#3
+    db   A#3
+    db   A#3
+    db   A#3
+    db   G#3
+    db   A#3
+    db   C_4
+    db   D#4
     db   $00
 ChannelDefinition4ddf:: ; $6cddf
     db   $9d, $40, $21, $80
     db   $a8
-    db   $5a
+    db   G#4
     db   $a3
     db   $01
     db   $a2
-    db   $58
+    db   G_4
     db   $a3
-    db   $5e
+    db   A#4
     db   $a8
-    db   $50
+    db   D#4
     db   $a2
     db   $01
     db   $a3
-    db   $5a
+    db   G#4
     db   $a2
-    db   $42
+    db   G#3
     db   $a3
-    db   $46
+    db   A#3
     db   $a2
-    db   $4a
+    db   C_4
     db   $a3
-    db   $4c
+    db   C#4
     db   $a2
-    db   $4a
+    db   C_4
     db   $a3
-    db   $4c
+    db   C#4
     db   $a7
-    db   $40
-    db   $54
+    db   G_3
+    db   F_4
     db   $ae
-    db   $50
+    db   D#4
     db   $a2
     db   $01
     db   $00
@@ -624,20 +624,20 @@ ChannelDefinition4e15:: ; $6ce15
     db   $9d, $05, $4e, $20
     db   $99
     db   $a7
-    db   $4a
-    db   $4a
-    db   $46
-    db   $46
-    db   $46
-    db   $46
-    db   $42
-    db   $42
-    db   $42
-    db   $42
-    db   $40
-    db   $40
-    db   $3e
-    db   $3e
-    db   $44
-    db   $4a
+    db   C_4
+    db   C_4
+    db   A#3
+    db   A#3
+    db   A#3
+    db   A#3
+    db   G#3
+    db   G#3
+    db   G#3
+    db   G#3
+    db   G_3
+    db   G_3
+    db   F#3
+    db   F#3
+    db   A_3
+    db   C_4
     db   $00

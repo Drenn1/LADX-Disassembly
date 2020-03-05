@@ -7,6 +7,9 @@ include "constants/constants.asm"
 include "code/macros.asm"
 include "code/header.asm"
 
+; For audio
+include "code/audio_macros.asm"
+
 ; Sources
 section "Main", rom0[$0150]
 include "code/bank0.asm"
