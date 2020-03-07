@@ -40,19 +40,18 @@ def getByteString(data, cols=16):
         s += '\n'
     return s
 
-# The table is actually 1-indexed, so increment index by 1 for the name!
 def getMusicLabel(index):
-    return 'Music' + myhex(index+1)
+    return 'Music' + myhex(index)
 
 def getChannelLabel(musicIndex, channelIndex, cptr):
     # HARDCODED: this is the only channel data that's shared.
     if toGbPointer(cptr) == 0x4b1a:
         return 'SharedMusicChannelData'
-    return 'Music{0}Channel{1}'.format(myhex(musicIndex+1), myhex(channelIndex+1, 1))
+    return 'Music{0}Channel{1}'.format(myhex(musicIndex), myhex(channelIndex, 1))
 
 def getChannelDefinitionLabel(musicIndex, channelIndex, ptr):
     ptr = toGbPointer(ptr)
-    return 'ChannelDefinition{2}'.format(myhex(musicIndex+1), myhex(channelIndex+1, 1), myhex(ptr, 4))
+    return 'ChannelDefinition{2}'.format(myhex(musicIndex), myhex(channelIndex, 1), myhex(ptr, 4))
 
 def getLoopLabel(ptr):
     if dataSet.hasLabelAt(ptr):
@@ -205,8 +204,8 @@ f.close()
 
 musicPtrList = []
 
-for i in range(NUM_TRACKS):
-    addr = MUSIC_PTR_TABLE + 2*i
+for i in range(1, NUM_TRACKS+1):
+    addr = MUSIC_PTR_TABLE + 2*(i-1) # Music is 1-indexed
     ptr = bankedAddress(MUSIC_BANK, read16(rom, addr))
     musicPtrList.append((ptr, i))
     #print(hex(addr) + ': ' + hex(ptr))
@@ -232,7 +231,7 @@ for j in range(len(musicPtrList)):
         ptr += 1
         out += '    dw   {0}\n'.format(getSpeedDataLabel(read16(rom, ptr)))
         ptr += 2
-        for c in range(4): # Sound channels
+        for c in range(1, 5): # Sound channels
             cptr = read16(rom, ptr)
             if cptr == 0:
                 out += '    dw   $0000\n'
@@ -349,7 +348,7 @@ for j in range(len(musicPtrList)):
                 elif op == 1:
                     out += '    db   $01'
                     out += '\n'
-                elif op >= 2 and op <= 0x8f and data.channelIndex != 3:
+                elif op >= 2 and op <= 0x8f and data.channelIndex != 4:
                     out += '    db   {0}'.format(getNoteName(op))
                     out += '\n'
                 else:
@@ -393,7 +392,7 @@ for j in range(len(musicPtrList)):
 
     # End of "parseSoundChannelData" function definition
 
-    for c in range(4):
+    for c in range(1,5):
         cptr = read16(rom, ptr)
         if cptr == 0:
             continue
