@@ -64,14 +64,23 @@ def getSpeedDataLabel(ptr):
 
 NOTE_STRINGS = [ 'C_','C#','D_','D#','E_','F_','F#','G_','G#','A_','A#','B_' ]
 
-def getNoteName(note):
-    assert(note >= 2 and note <= 0x8f)
-    note -= 2
-    octave = note // 24 + 1
-    if note % 2 == 1:
-        return NOTE_STRINGS[(note//2) % 12] + str(octave) + '+1'
+def getNoteName(note, channel):
+    if channel == 4:
+        assert(note >= 1 and note < 1+17*5 and (note-1)%5 == 0)
+        return 'NOISE_{0}'.format(((note-1)//5)+1)
     else:
-        return NOTE_STRINGS[(note//2) % 12] + str(octave)
+        assert(note >= 2 and note <= 0x8f)
+        note -= 2
+        octave = note // 24 + 1
+        if note % 2 == 1:
+            return NOTE_STRINGS[(note//2) % 12] + str(octave) + '+1'
+        else:
+            return NOTE_STRINGS[(note//2) % 12] + str(octave)
+
+def getWaveformName(addr):
+    bank = addr // 0x4000
+    addr = toGbPointer(addr)
+    return 'waveform_{0}_{1}'.format(myhex(bank), myhex(addr, 4))
 
 # ================================================================================
 # Data Class
@@ -213,6 +222,77 @@ for i in range(1, NUM_TRACKS+1):
 dataSet = DataSet()
 parsedMusicAddresses = set()
 
+waveformAddresses = set()
+
+def parseSoundChannelDefinition(ptr, channelIndex, endAddr, printPass):
+    out = ''
+
+    def addByteOperand():
+        nonlocal out, ptr
+        b = rom[ptr]
+        ptr += 1
+        out += ', ${0}'.format(myhex(b))
+
+    def addWordOperand():
+        nonlocal out, ptr
+        b = read16(rom, ptr)
+        ptr += 2
+        out += ', ${0}'.format(myhex(b, 4))
+
+    while True:
+        if endAddr != -1 and ptr >= endAddr:
+            break
+        op = rom[ptr]
+        ptr += 1
+        if op == 0:
+            out += '    db   ${0}'.format(myhex(op))
+            out += '\n'
+            break
+        elif (op >= 0x94 and op <= 0x9a) or op == 0x9c:
+            out += '    db   ${0}'.format(myhex(op))
+            out += '\n'
+        elif op == 0x9b:
+            out += '    db   ${0}'.format(myhex(op))
+            addByteOperand()
+            out += '\n'
+        elif op == 0x9d:
+            if channelIndex == 3:
+                waveformAddr = bankedAddress(MUSIC_BANK, read16(rom, ptr))
+                if not printPass:
+                    waveformAddresses.add(waveformAddr)
+                waveformName = getWaveformName(waveformAddr)
+                out += '    SET_WAVEFORM  {0}, ${1}'.format(waveformName, myhex(rom[ptr+2]))
+                ptr += 3
+                out += '\n'
+            else:
+                out += '    db   ${0}'.format(myhex(op))
+                addByteOperand()
+                addByteOperand()
+                addByteOperand()
+                out += '\n'
+        elif op == 0x9e:
+            out += '    db   ${0}'.format(myhex(op))
+            w = read16(rom, ptr)
+            ptr += 2
+            out += '\n    dw   ${0}\n'.format(myhex(w, 4))
+        elif op == 0x9f:
+            out += '    db   ${0}'.format(myhex(op))
+            addByteOperand()
+            out += '\n'
+        elif op >= 0xa0 and op <= 0xaf:
+            out += '    db   ${0}'.format(myhex(op))
+            out += '\n'
+        elif op == 1:
+            out += '    db   $01'
+            out += '\n'
+        elif op >= 2 and op <= 0x8f:
+            out += '    db   {0}'.format(getNoteName(op, channelIndex))
+            out += '\n'
+        else:
+            out += '    db   ${0} ; (UNKNOWN OP)'.format(myhex(op))
+            out += '\n'
+    return (ptr, out)
+
 for j in range(len(musicPtrList)):
     ptr,i = musicPtrList[j]
 
@@ -299,61 +379,8 @@ for j in range(len(musicPtrList)):
             out = ''
             ptr = data.startAddr
 
-            def addByteOperand():
-                nonlocal out, ptr
-                b = rom[ptr]
-                ptr += 1
-                out += ', ${0}'.format(myhex(b))
+            ptr, out = parseSoundChannelDefinition(data.startAddr, data.channelIndex, data.endAddr, True)
 
-            def addWordOperand():
-                nonlocal out, ptr
-                b = read16(rom, ptr)
-                ptr += 2
-                out += ', ${0}'.format(myhex(b, 4))
-
-            while True:
-                if ptr >= data.endAddr:
-                    break
-                op = rom[ptr]
-                ptr += 1
-                if op == 0:
-                    out += '    db   ${0}'.format(myhex(op))
-                    out += '\n'
-                    break
-                elif (op >= 0x94 and op <= 0x9a) or op == 0x9c:
-                    out += '    db   ${0}'.format(myhex(op))
-                    out += '\n'
-                elif op == 0x9b:
-                    out += '    db   ${0}'.format(myhex(op))
-                    addByteOperand()
-                    out += '\n'
-                elif op == 0x9d:
-                    out += '    db   ${0}'.format(myhex(op))
-                    addByteOperand()
-                    addByteOperand()
-                    addByteOperand()
-                    out += '\n'
-                elif op == 0x9e:
-                    out += '    db   ${0}'.format(myhex(op))
-                    w = read16(rom, ptr)
-                    ptr += 2
-                    out += '\n    dw   ${0}\n'.format(myhex(w, 4))
-                elif op == 0x9f:
-                    out += '    db   ${0}'.format(myhex(op))
-                    addByteOperand()
-                    out += '\n'
-                elif op >= 0xa0 and op <= 0xaf:
-                    out += '    db   ${0}'.format(myhex(op))
-                    out += '\n'
-                elif op == 1:
-                    out += '    db   $01'
-                    out += '\n'
-                elif op >= 2 and op <= 0x8f and data.channelIndex != 4:
-                    out += '    db   {0}'.format(getNoteName(op))
-                    out += '\n'
-                else:
-                    out += '    db   ${0} ; (UNKNOWN OP)'.format(myhex(op))
-                    out += '\n'
             assert(ptr <= data.endAddr)
             if ptr < data.endAddr:
                 out += '; UNREFERENCED DATA\n'
@@ -389,6 +416,7 @@ for j in range(len(musicPtrList)):
                     data.channelIndex = channel
                     data.setLabel(label)
                     dataSet.addData(data)
+                    parseSoundChannelDefinition(dptr, channel, -1, False)
 
     # End of "parseSoundChannelData" function definition
 
@@ -400,6 +428,27 @@ for j in range(len(musicPtrList)):
         parseSoundChannelData(c, cptr)
         ptr += 2
 
+
+# Done with music definitions; now handle the waveform pointers we found
+
+def printWaveformData(data):
+    out = ''
+    ptr = data.startAddr
+    out += getByteString(rom[ptr:ptr+16])
+    ptr += 16
+    assert(ptr <= data.endAddr)
+    if ptr < data.endAddr:
+        out += '; UNREFERENCED DATA\n'
+        out += getByteString(rom[ptr:data.endAddr])
+    return out
+
+for addr in waveformAddresses:
+    print(hex(addr))
+    data = Data(addr, printWaveformData)
+    data.setLabel(getWaveformName(addr))
+    dataSet.addData(data)
+
+print('Done')
 
 # Hardcoded offsets for start and end of sound data segments
 f = open('src/data/music/music_tracks_data_3.asm', 'w')

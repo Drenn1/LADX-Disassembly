@@ -9,7 +9,7 @@ Music18Channel3:: ; $6d00b
     dw   ChannelDefinition500f
     dw   $0000
 ChannelDefinition500f:: ; $6d00f
-    db   $9d, $01, $6f, $01
+    SET_WAVEFORM  waveform_1b_6f01, $01
     db   $94
     db   $a3
     db   C_4
@@ -703,7 +703,7 @@ ChannelDefinition52eb:: ; $6d2eb
     db   A_6
     db   $00
 ChannelDefinition5327:: ; $6d327
-    db   $9d, $21, $6f, $20
+    SET_WAVEFORM  waveform_1b_6f21, $20
     db   $00
 Music04:: ; $6d32c
     db   $00
@@ -2159,94 +2159,94 @@ ChannelDefinition597f:: ; $6d97f
 ChannelDefinition5994:: ; $6d994
     db   $9b, $1f
     db   $a2
-    db   $0b ; (UNKNOWN OP)
+    db   NOISE_3
     db   $a1
-    db   $0b ; (UNKNOWN OP)
-    db   $0b ; (UNKNOWN OP)
+    db   NOISE_3
+    db   NOISE_3
     db   $9c
-    db   $15 ; (UNKNOWN OP)
-    db   $15 ; (UNKNOWN OP)
-    db   $15 ; (UNKNOWN OP)
-    db   $15 ; (UNKNOWN OP)
+    db   NOISE_5
+    db   NOISE_5
+    db   NOISE_5
+    db   NOISE_5
     db   $00
 ChannelDefinition59a1:: ; $6d9a1
     db   $9b, $0d
     db   $a2
-    db   $15 ; (UNKNOWN OP)
+    db   NOISE_5
     db   $a1
-    db   $15 ; (UNKNOWN OP)
-    db   $15 ; (UNKNOWN OP)
+    db   NOISE_5
+    db   NOISE_5
     db   $a2
-    db   $15 ; (UNKNOWN OP)
+    db   NOISE_5
     db   $a1
-    db   $15 ; (UNKNOWN OP)
-    db   $15 ; (UNKNOWN OP)
+    db   NOISE_5
+    db   NOISE_5
     db   $a2
-    db   $15 ; (UNKNOWN OP)
+    db   NOISE_5
     db   $a1
-    db   $15 ; (UNKNOWN OP)
-    db   $15 ; (UNKNOWN OP)
-    db   $15 ; (UNKNOWN OP)
-    db   $15 ; (UNKNOWN OP)
-    db   $15 ; (UNKNOWN OP)
-    db   $15 ; (UNKNOWN OP)
+    db   NOISE_5
+    db   NOISE_5
+    db   NOISE_5
+    db   NOISE_5
+    db   NOISE_5
+    db   NOISE_5
     db   $9c
     db   $00
 ChannelDefinition59b8:: ; $6d9b8
     db   $a1
-    db   $15 ; (UNKNOWN OP)
-    db   $15 ; (UNKNOWN OP)
-    db   $15 ; (UNKNOWN OP)
-    db   $15 ; (UNKNOWN OP)
+    db   NOISE_5
+    db   NOISE_5
+    db   NOISE_5
+    db   NOISE_5
     db   $a3
-    db   $15 ; (UNKNOWN OP)
+    db   NOISE_5
     db   $a4
     db   $01
     db   $00
 ChannelDefinition59c2:: ; $6d9c2
     db   $9b, $17
     db   $a2
-    db   $15 ; (UNKNOWN OP)
+    db   NOISE_5
     db   $a1
-    db   $15 ; (UNKNOWN OP)
-    db   $15 ; (UNKNOWN OP)
+    db   NOISE_5
+    db   NOISE_5
     db   $a2
-    db   $15 ; (UNKNOWN OP)
+    db   NOISE_5
     db   $a1
-    db   $15 ; (UNKNOWN OP)
-    db   $15 ; (UNKNOWN OP)
+    db   NOISE_5
+    db   NOISE_5
     db   $a2
-    db   $15 ; (UNKNOWN OP)
+    db   NOISE_5
     db   $a1
-    db   $15 ; (UNKNOWN OP)
-    db   $15 ; (UNKNOWN OP)
-    db   $15 ; (UNKNOWN OP)
-    db   $15 ; (UNKNOWN OP)
-    db   $15 ; (UNKNOWN OP)
-    db   $15 ; (UNKNOWN OP)
+    db   NOISE_5
+    db   NOISE_5
+    db   NOISE_5
+    db   NOISE_5
+    db   NOISE_5
+    db   NOISE_5
     db   $9c
     db   $00
 ChannelDefinition59d9:: ; $6d9d9
     db   $9b, $0c
     db   $a2
-    db   $15 ; (UNKNOWN OP)
+    db   NOISE_5
     db   $a1
-    db   $15 ; (UNKNOWN OP)
-    db   $15 ; (UNKNOWN OP)
+    db   NOISE_5
+    db   NOISE_5
     db   $a2
-    db   $15 ; (UNKNOWN OP)
+    db   NOISE_5
     db   $a1
-    db   $15 ; (UNKNOWN OP)
-    db   $15 ; (UNKNOWN OP)
+    db   NOISE_5
+    db   NOISE_5
     db   $a2
-    db   $15 ; (UNKNOWN OP)
+    db   NOISE_5
     db   $a1
-    db   $15 ; (UNKNOWN OP)
-    db   $15 ; (UNKNOWN OP)
-    db   $15 ; (UNKNOWN OP)
-    db   $15 ; (UNKNOWN OP)
-    db   $15 ; (UNKNOWN OP)
-    db   $15 ; (UNKNOWN OP)
+    db   NOISE_5
+    db   NOISE_5
+    db   NOISE_5
+    db   NOISE_5
+    db   NOISE_5
+    db   NOISE_5
     db   $9c
     db   $00
 Music07:: ; $6d9f0
@@ -2546,38 +2546,38 @@ ChannelDefinition5b45:: ; $6db45
 ChannelDefinition5b5a:: ; $6db5a
     db   $9b, $08
     db   $a2
-    db   $29 ; (UNKNOWN OP)
-    db   $29 ; (UNKNOWN OP)
-    db   $29 ; (UNKNOWN OP)
-    db   $29 ; (UNKNOWN OP)
+    db   NOISE_9
+    db   NOISE_9
+    db   NOISE_9
+    db   NOISE_9
     db   $a3
     db   $ff ; (UNKNOWN OP)
     db   $a2
-    db   $29 ; (UNKNOWN OP)
-    db   $29 ; (UNKNOWN OP)
+    db   NOISE_9
+    db   NOISE_9
     db   $9c
     db   $00
 ChannelDefinition5b68:: ; $6db68
     db   $a3
-    db   $29 ; (UNKNOWN OP)
+    db   NOISE_9
     db   $a2
-    db   $29 ; (UNKNOWN OP)
-    db   $29 ; (UNKNOWN OP)
+    db   NOISE_9
+    db   NOISE_9
     db   $a3
     db   $ff ; (UNKNOWN OP)
     db   $a2
-    db   $29 ; (UNKNOWN OP)
-    db   $29 ; (UNKNOWN OP)
+    db   NOISE_9
+    db   NOISE_9
     db   $a2
-    db   $29 ; (UNKNOWN OP)
-    db   $29 ; (UNKNOWN OP)
-    db   $29 ; (UNKNOWN OP)
-    db   $29 ; (UNKNOWN OP)
+    db   NOISE_9
+    db   NOISE_9
+    db   NOISE_9
+    db   NOISE_9
     db   $a3
     db   $ff ; (UNKNOWN OP)
     db   $a2
-    db   $29 ; (UNKNOWN OP)
-    db   $29 ; (UNKNOWN OP)
+    db   NOISE_9
+    db   NOISE_9
     db   $00
 Music09:: ; $6db7d
     db   $00
@@ -2777,15 +2777,15 @@ ChannelDefinition5c44:: ; $6dc44
 ChannelDefinition5c61:: ; $6dc61
     db   $9b, $04
     db   $a1
-    db   $29 ; (UNKNOWN OP)
+    db   NOISE_9
     db   $9c
     db   $ff ; (UNKNOWN OP)
     db   $9b, $05
-    db   $29 ; (UNKNOWN OP)
+    db   NOISE_9
     db   $9c
     db   $ff ; (UNKNOWN OP)
     db   $9b, $05
-    db   $29 ; (UNKNOWN OP)
+    db   NOISE_9
     db   $9c
     db   $00
 Music0a:: ; $6dc71
@@ -3061,23 +3061,23 @@ ChannelDefinition5d7b:: ; $6dd7b
     db   $00
 ChannelDefinition5da5:: ; $6dda5
     db   $a2
-    db   $29 ; (UNKNOWN OP)
+    db   NOISE_9
     db   $a1
-    db   $29 ; (UNKNOWN OP)
-    db   $29 ; (UNKNOWN OP)
+    db   NOISE_9
+    db   NOISE_9
     db   $a2
     db   $ff ; (UNKNOWN OP)
     db   $a1
-    db   $29 ; (UNKNOWN OP)
-    db   $29 ; (UNKNOWN OP)
+    db   NOISE_9
+    db   NOISE_9
     db   $a1
-    db   $29 ; (UNKNOWN OP)
-    db   $29 ; (UNKNOWN OP)
-    db   $29 ; (UNKNOWN OP)
-    db   $29 ; (UNKNOWN OP)
+    db   NOISE_9
+    db   NOISE_9
+    db   NOISE_9
+    db   NOISE_9
     db   $a2
     db   $ff ; (UNKNOWN OP)
-    db   $1a ; (UNKNOWN OP)
+    db   NOISE_6
     db   $00
 Music0c:: ; $6ddb8
     db   $00
@@ -4481,16 +4481,16 @@ ChannelDefinition6428:: ; $6e428
 ChannelDefinition642e:: ; $6e42e
     db   $9b, $02
     db   $a1
-    db   $15 ; (UNKNOWN OP)
-    db   $15 ; (UNKNOWN OP)
-    db   $15 ; (UNKNOWN OP)
-    db   $15 ; (UNKNOWN OP)
+    db   NOISE_5
+    db   NOISE_5
+    db   NOISE_5
+    db   NOISE_5
     db   $a2
     db   $01
     db   $9c
     db   $9b, $08
     db   $a1
-    db   $15 ; (UNKNOWN OP)
+    db   NOISE_5
     db   $9c
     db   $00
 Music1a:: ; $6e43e
@@ -4625,15 +4625,15 @@ ChannelDefinition64b5:: ; $6e4b5
 ChannelDefinition64d0:: ; $6e4d0
     db   $9b, $03
     db   $a2
-    db   $15 ; (UNKNOWN OP)
+    db   NOISE_5
     db   $ad
-    db   $15 ; (UNKNOWN OP)
-    db   $15 ; (UNKNOWN OP)
-    db   $15 ; (UNKNOWN OP)
+    db   NOISE_5
+    db   NOISE_5
+    db   NOISE_5
     db   $9c
     db   $9b, $04
     db   $a1
-    db   $15 ; (UNKNOWN OP)
+    db   NOISE_5
     db   $9c
     db   $00
 Music1b:: ; $6e4df
@@ -5753,10 +5753,10 @@ ChannelDefinition6a2d:: ; $6ea2d
     db   $01
     db   $00
 ChannelDefinition6a3c:: ; $6ea3c
-    db   $9d, $21, $6f, $20
+    SET_WAVEFORM  waveform_1b_6f21, $20
     db   $00
 ChannelDefinition6a41:: ; $6ea41
-    db   $9d, $11, $6f, $40
+    SET_WAVEFORM  waveform_1b_6f11, $40
     db   $00
 ChannelDefinition6a46:: ; $6ea46
     db   $9b, $03
@@ -5775,7 +5775,7 @@ ChannelDefinition6a50:: ; $6ea50
     db   $01
     db   $00
 ChannelDefinition6a55:: ; $6ea55
-    db   $9d, $c1, $6e, $20
+    SET_WAVEFORM  waveform_1b_6ec1, $20
     db   $99
     db   $a2
     db   B_3
@@ -5848,7 +5848,7 @@ ChannelDefinition6a7c:: ; $6ea7c
     db   $9c
     db   $00
 ChannelDefinition6aa3:: ; $6eaa3
-    db   $9d, $c1, $6e, $20
+    SET_WAVEFORM  waveform_1b_6ec1, $20
     db   $99
     db   $9b, $06
     db   $a3
@@ -6149,71 +6149,71 @@ ChannelDefinition6bcd:: ; $6ebcd
 ChannelDefinition6bd5:: ; $6ebd5
     db   $9b, $03
     db   $a3
-    db   $15 ; (UNKNOWN OP)
+    db   NOISE_5
     db   $aa
-    db   $1a ; (UNKNOWN OP)
-    db   $1a ; (UNKNOWN OP)
-    db   $1a ; (UNKNOWN OP)
+    db   NOISE_6
+    db   NOISE_6
+    db   NOISE_6
     db   $9c
     db   $aa
-    db   $15 ; (UNKNOWN OP)
-    db   $15 ; (UNKNOWN OP)
-    db   $15 ; (UNKNOWN OP)
-    db   $1a ; (UNKNOWN OP)
-    db   $15 ; (UNKNOWN OP)
-    db   $15 ; (UNKNOWN OP)
+    db   NOISE_5
+    db   NOISE_5
+    db   NOISE_5
+    db   NOISE_6
+    db   NOISE_5
+    db   NOISE_5
     db   $00
 ChannelDefinition6be6:: ; $6ebe6
     db   $9b, $03
     db   $a3
-    db   $15 ; (UNKNOWN OP)
+    db   NOISE_5
     db   $aa
-    db   $1a ; (UNKNOWN OP)
-    db   $1a ; (UNKNOWN OP)
-    db   $1a ; (UNKNOWN OP)
+    db   NOISE_6
+    db   NOISE_6
+    db   NOISE_6
     db   $9c
     db   $aa
-    db   $15 ; (UNKNOWN OP)
-    db   $15 ; (UNKNOWN OP)
-    db   $15 ; (UNKNOWN OP)
-    db   $1a ; (UNKNOWN OP)
-    db   $15 ; (UNKNOWN OP)
-    db   $15 ; (UNKNOWN OP)
+    db   NOISE_5
+    db   NOISE_5
+    db   NOISE_5
+    db   NOISE_6
+    db   NOISE_5
+    db   NOISE_5
     db   $00
 ChannelDefinition6bf7:: ; $6ebf7
     db   $9b, $08
     db   $aa
-    db   $29 ; (UNKNOWN OP)
-    db   $29 ; (UNKNOWN OP)
-    db   $29 ; (UNKNOWN OP)
-    db   $1a ; (UNKNOWN OP)
-    db   $29 ; (UNKNOWN OP)
-    db   $29 ; (UNKNOWN OP)
+    db   NOISE_9
+    db   NOISE_9
+    db   NOISE_9
+    db   NOISE_6
+    db   NOISE_9
+    db   NOISE_9
     db   $9c
     db   $00
 ChannelDefinition6c02:: ; $6ec02
     db   $9b, $02
     db   $a1
-    db   $1a ; (UNKNOWN OP)
-    db   $1a ; (UNKNOWN OP)
+    db   NOISE_6
+    db   NOISE_6
     db   $a3
-    db   $1a ; (UNKNOWN OP)
+    db   NOISE_6
     db   $9c
     db   $9b, $04
     db   $a1
-    db   $1a ; (UNKNOWN OP)
+    db   NOISE_6
     db   $9c
     db   $00
 ChannelDefinition6c10:: ; $6ec10
     db   $a3
-    db   $1a ; (UNKNOWN OP)
+    db   NOISE_6
     db   $a2
-    db   $1a ; (UNKNOWN OP)
+    db   NOISE_6
     db   $a1
-    db   $1a ; (UNKNOWN OP)
-    db   $1a ; (UNKNOWN OP)
+    db   NOISE_6
+    db   NOISE_6
     db   $a3
-    db   $1a ; (UNKNOWN OP)
+    db   NOISE_6
     db   $01
     db   $00
 Music1e:: ; $6ec1b
@@ -6661,68 +6661,68 @@ ChannelDefinition6e4a:: ; $6ee4a
 ChannelDefinition6e56:: ; $6ee56
     db   $9b, $03
     db   $a2
-    db   $15 ; (UNKNOWN OP)
+    db   NOISE_5
     db   $a9
-    db   $15 ; (UNKNOWN OP)
+    db   NOISE_5
     db   $ad
     db   $01
     db   $a9
-    db   $15 ; (UNKNOWN OP)
+    db   NOISE_5
     db   $ad
     db   $01
     db   $a9
-    db   $15 ; (UNKNOWN OP)
+    db   NOISE_5
     db   $9c
     db   $9b, $04
     db   $a1
-    db   $15 ; (UNKNOWN OP)
+    db   NOISE_5
     db   $9c
     db   $00
 ChannelDefinition6e6b:: ; $6ee6b
     db   $a2
-    db   $24 ; (UNKNOWN OP)
+    db   NOISE_8
     db   $a9
-    db   $1a ; (UNKNOWN OP)
+    db   NOISE_6
     db   $ad
     db   $01
     db   $a9
-    db   $1a ; (UNKNOWN OP)
+    db   NOISE_6
     db   $ad
     db   $01
     db   $a9
-    db   $1a ; (UNKNOWN OP)
+    db   NOISE_6
     db   $a2
-    db   $1a ; (UNKNOWN OP)
+    db   NOISE_6
     db   $a9
-    db   $1a ; (UNKNOWN OP)
+    db   NOISE_6
     db   $ad
     db   $01
     db   $a9
-    db   $1a ; (UNKNOWN OP)
+    db   NOISE_6
     db   $ad
     db   $01
     db   $a9
-    db   $1a ; (UNKNOWN OP)
+    db   NOISE_6
     db   $a2
-    db   $24 ; (UNKNOWN OP)
+    db   NOISE_8
     db   $a9
-    db   $15 ; (UNKNOWN OP)
+    db   NOISE_5
     db   $ad
     db   $01
     db   $a9
-    db   $1a ; (UNKNOWN OP)
+    db   NOISE_6
     db   $ad
     db   $01
     db   $a9
-    db   $1a ; (UNKNOWN OP)
+    db   NOISE_6
     db   $9b, $04
     db   $a1
-    db   $1a ; (UNKNOWN OP)
+    db   NOISE_6
     db   $9c
     db   $00
 ChannelDefinition6e95:: ; $6ee95
     db   $a4
-    db   $24 ; (UNKNOWN OP)
+    db   NOISE_8
     db   $01
     db   $00
 ChannelDefinition6e99:: ; $6ee99
@@ -6733,50 +6733,59 @@ ChannelDefinition6e99:: ; $6ee99
     db   $a7
     db   $01
     db   $00
-; UNREFERENCED DATA
+waveform_1b_6ea1:: ; $6eea1
     db   $66, $66, $66, $66, $66, $66, $66, $66, $00, $00, $00, $00, $00, $00, $00, $00
+waveform_1b_6eb1:: ; $6eeb1
     db   $88, $88, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+waveform_1b_6ec1:: ; $6eec1
     db   $88, $88, $88, $88, $88, $88, $88, $88, $00, $00, $00, $00, $00, $00, $00, $00
+waveform_1b_6ed1:: ; $6eed1
     db   $88, $88, $88, $88, $00, $00, $00, $00, $88, $88, $88, $88, $00, $00, $00, $00
+waveform_1b_6ee1:: ; $6eee1
     db   $aa, $aa, $aa, $aa, $aa, $aa, $aa, $aa, $00, $00, $00, $00, $00, $00, $00, $00
+waveform_1b_6ef1:: ; $6eef1
     db   $06, $9b, $cd, $de, $ee, $ff, $ff, $fe, $06, $9b, $cd, $de, $ee, $ff, $ff, $fe
+waveform_1b_6f01:: ; $6ef01
     db   $7f, $ff, $57, $73, $55, $34, $42, $21, $7f, $ff, $57, $73, $55, $34, $42, $21
+waveform_1b_6f11:: ; $6ef11
     db   $33, $33, $33, $33, $00, $00, $00, $00, $33, $33, $33, $33, $00, $00, $00, $00
+waveform_1b_6f21:: ; $6ef21
     db   $11, $11, $11, $11, $00, $00, $00, $00, $11, $11, $11, $11, $00, $00, $00, $00
+waveform_1b_6f31:: ; $6ef31
     db   $44, $44, $44, $44, $00, $00, $00, $00, $44, $44, $44, $44, $00, $00, $00, $00
 ChannelDefinition6f41:: ; $6ef41
-    db   $9d, $c1, $6e, $20
+    SET_WAVEFORM  waveform_1b_6ec1, $20
     db   $00
 ChannelDefinition6f46:: ; $6ef46
-    db   $9d, $c1, $6e, $40
+    SET_WAVEFORM  waveform_1b_6ec1, $40
     db   $00
 ChannelDefinition6f4b:: ; $6ef4b
-    db   $9d, $d1, $6e, $21
+    SET_WAVEFORM  waveform_1b_6ed1, $21
     db   $00
 ; UNREFERENCED DATA
     db   $9d, $d1, $6e, $40, $00
 ChannelDefinition6f55:: ; $6ef55
-    db   $9d, $d1, $6e, $40
+    SET_WAVEFORM  waveform_1b_6ed1, $40
     db   $99
     db   $00
 ChannelDefinition6f5b:: ; $6ef5b
-    db   $9d, $a1, $6e, $20
+    SET_WAVEFORM  waveform_1b_6ea1, $20
     db   $00
 ChannelDefinition6f60:: ; $6ef60
-    db   $9d, $e1, $6e, $20
+    SET_WAVEFORM  waveform_1b_6ee1, $20
     db   $00
 ChannelDefinition6f65:: ; $6ef65
-    db   $9d, $31, $6f, $40
+    SET_WAVEFORM  waveform_1b_6f31, $40
     db   $99
     db   $00
 ChannelDefinition6f6b:: ; $6ef6b
-    db   $9d, $b1, $6e, $21
+    SET_WAVEFORM  waveform_1b_6eb1, $21
     db   $00
 ChannelDefinition6f70:: ; $6ef70
-    db   $9d, $b1, $6e, $25
+    SET_WAVEFORM  waveform_1b_6eb1, $25
     db   $00
 ChannelDefinition6f75:: ; $6ef75
-    db   $9d, $b1, $6e, $40
+    SET_WAVEFORM  waveform_1b_6eb1, $40
     db   $00
 ChannelDefinition6f7a:: ; $6ef7a
     db   $9d, $42, $00, $80
@@ -6872,11 +6881,11 @@ ChannelDefinition7010:: ; $6f010
     db   $9d, $51, $82, $80
     db   $00
 ChannelDefinition7015:: ; $6f015
-    db   $9d, $01, $6f, $01
+    SET_WAVEFORM  waveform_1b_6f01, $01
     db   $94
     db   $00
 ChannelDefinition701b:: ; $6f01b
-    db   $9d, $f1, $6e, $01
+    SET_WAVEFORM  waveform_1b_6ef1, $01
     db   $94
     db   $00
 ChannelDefinition7021:: ; $6f021

@@ -286,7 +286,7 @@ ChannelDefinition71b2:: ; $6f1b2
     db   C_6
     db   $00
 ChannelDefinition7228:: ; $6f228
-    db   $9d, $49, $73, $21
+    SET_WAVEFORM  waveform_1b_7349, $21
     db   $00
 ChannelDefinition722d:: ; $6f22d
     db   $a5
@@ -351,29 +351,29 @@ ChannelDefinition722d:: ; $6f22d
     db   F#2
     db   $00
 ChannelDefinition726a:: ; $6f26a
-    db   $9d, $59, $73, $40
+    SET_WAVEFORM  waveform_1b_7359, $40
     db   $99
     db   $a2
     db   D_3
     db   D_3
     db   D_3
     db   D_3
-    db   $9d, $69, $73, $40
+    SET_WAVEFORM  waveform_1b_7369, $40
     db   D_3
     db   D_3
     db   D_3
     db   D_3
-    db   $9d, $59, $73, $40
+    SET_WAVEFORM  waveform_1b_7359, $40
     db   D_3
     db   D_3
     db   D_3
     db   D_3
-    db   $9d, $69, $73, $40
+    SET_WAVEFORM  waveform_1b_7369, $40
     db   D_3
     db   D_3
     db   D_3
     db   D_3
-    db   $9d, $59, $73, $40
+    SET_WAVEFORM  waveform_1b_7359, $40
     db   $01
     db   $01
     db   $01
@@ -386,22 +386,22 @@ ChannelDefinition726a:: ; $6f26a
     db   A_2
     db   A_2
     db   A_2
-    db   $9d, $69, $73, $40
+    SET_WAVEFORM  waveform_1b_7369, $40
     db   A_2
     db   A_2
     db   A_2
     db   A_2
-    db   $9d, $59, $73, $40
+    SET_WAVEFORM  waveform_1b_7359, $40
     db   C_3
     db   C_3
     db   C_3
     db   C_3
-    db   $9d, $69, $73, $40
+    SET_WAVEFORM  waveform_1b_7369, $40
     db   C_3
     db   C_3
     db   C_3
     db   C_3
-    db   $9d, $59, $73, $40
+    SET_WAVEFORM  waveform_1b_7359, $40
     db   $01
     db   $01
     db   $01
@@ -414,12 +414,12 @@ ChannelDefinition726a:: ; $6f26a
     db   B_2
     db   B_2
     db   B_2
-    db   $9d, $69, $73, $40
+    SET_WAVEFORM  waveform_1b_7369, $40
     db   B_2
     db   B_2
     db   B_2
     db   B_2
-    db   $9d, $59, $73, $40
+    SET_WAVEFORM  waveform_1b_7359, $40
     db   $01
     db   $01
     db   $01
@@ -432,12 +432,12 @@ ChannelDefinition726a:: ; $6f26a
     db   A#2
     db   A#2
     db   A#2
-    db   $9d, $69, $73, $40
+    SET_WAVEFORM  waveform_1b_7369, $40
     db   A#2
     db   A#2
     db   A#2
     db   A#2
-    db   $9d, $59, $73, $40
+    SET_WAVEFORM  waveform_1b_7359, $40
     db   $01
     db   $01
     db   A#2
@@ -450,12 +450,12 @@ ChannelDefinition726a:: ; $6f26a
     db   A_2
     db   A_2
     db   A_2
-    db   $9d, $69, $73, $40
+    SET_WAVEFORM  waveform_1b_7369, $40
     db   A_2
     db   A_2
     db   A_2
     db   A_2
-    db   $9d, $59, $73, $40
+    SET_WAVEFORM  waveform_1b_7359, $40
     db   $01
     db   $01
     db   G_2
@@ -468,7 +468,7 @@ ChannelDefinition726a:: ; $6f26a
     db   A_2
     db   A_2
     db   A_2
-    db   $9d, $69, $73, $40
+    SET_WAVEFORM  waveform_1b_7369, $40
     db   A_2
     db   A_2
     db   A_2
@@ -490,7 +490,12 @@ ChannelDefinition726a:: ; $6f26a
 ; UNREFERENCED DATA
     db   $9b, $07, $a3, $15, $15, $1f, $a2, $06, $a3, $15, $15, $a2, $15, $a3, $10, $9c
     db   $a2, $15, $15, $15, $15, $a3, $01, $a2, $15, $15, $15, $15, $a3, $01, $a2, $15
-    db   $15, $15, $15, $a3, $06, $06, $00, $66, $66, $66, $66, $00, $00, $00, $00, $00
-    db   $00, $00, $00, $00, $00, $00, $00, $09, $09, $09, $09, $09, $09, $09, $09, $09
-    db   $09, $09, $09, $09, $09, $09, $09, $05, $05, $05, $05, $05, $05, $05, $05, $05
-    db   $05, $05, $05, $05, $05, $05, $05, $00
+    db   $15, $15, $15, $a3, $06, $06, $00
+waveform_1b_7349:: ; $6f349
+    db   $66, $66, $66, $66, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+waveform_1b_7359:: ; $6f359
+    db   $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09
+waveform_1b_7369:: ; $6f369
+    db   $05, $05, $05, $05, $05, $05, $05, $05, $05, $05, $05, $05, $05, $05, $05, $05
+; UNREFERENCED DATA
+    db   $00

@@ -797,7 +797,8 @@ wD314:: ; D314
   ds 2
 
 wD316:: ; D316
-  ; Opcode 9D stores data here
+  ; Opcode 9D stores data here.
+  ; For channel 3, D336-D337 are a pointer to waveform data.
   ds 3
 
 wD319:: ; D319

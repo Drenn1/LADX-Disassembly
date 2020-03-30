@@ -184,17 +184,19 @@ GetMusicDataPtr_1B::
     ld   a, h                                     ; $40E4: $7C
     ret                                           ; $40E5: $C9
 
-func_01B_40E6::
+; Input:
+;   hl:  Waveform (16 bytes to write to $FF30)
+SetWaveform_1B::
     push bc                                       ; $40E6: $C5
-    ld   c, $30                                   ; $40E7: $0E $30
+    ld   c, $30 ; $FF30, Wave pattern RAM         ; $40E7: $0E $30
 
-jr_01B_40E9:
+.loop
     ld   a, [hl+]                                 ; $40E9: $2A
     ld   [c], a                                   ; $40EA: $E2
     inc  c                                        ; $40EB: $0C
     ld   a, c                                     ; $40EC: $79
     cp   $40                                      ; $40ED: $FE $40
-    jr   nz, jr_01B_40E9                          ; $40EF: $20 $F8
+    jr   nz, .loop                                ; $40EF: $20 $F8
 
     pop  bc                                       ; $40F1: $C1
     ret                                           ; $40F2: $C9
@@ -535,7 +537,9 @@ jr_01B_435E:
     ld   [$D33E], a                               ; $43BD: $EA $3E $D3
     ret                                           ; $43C0: $C9
 
-jr_01B_43C1:
+; Input:
+;  de:  Pointer to waveform data
+soundOpcode9DChannel3Handler_1B::
     push hl                                       ; $43C1: $E5
     ld   a, e                                     ; $43C2: $7B
     ld   [$D336], a                               ; $43C3: $EA $36 $D3
@@ -543,19 +547,19 @@ jr_01B_43C1:
     ld   [$D337], a                               ; $43C7: $EA $37 $D3
     ld   a, [$D371]                               ; $43CA: $FA $71 $D3
     and  a                                        ; $43CD: $A7
-    jr   nz, jr_01B_43D8                          ; $43CE: $20 $08
+    jr   nz, .nextOpcode                          ; $43CE: $20 $08
 
     xor  a                                        ; $43D0: $AF
     ldh  [rNR30], a                               ; $43D1: $E0 $1A
     ld   l, e                                     ; $43D3: $6B
     ld   h, d                                     ; $43D4: $62
-    call func_01B_40E6                            ; $43D5: $CD $E6 $40
+    call SetWaveform_1B                            ; $43D5: $CD $E6 $40
 
-jr_01B_43D8:
+.nextOpcode
     pop  hl                                       ; $43D8: $E1
     jr   soundOpcode9D.nextOpcode                              ; $43D9: $18 $2A
 
-soundOpcode9D:
+soundOpcode9D::
     call IncChannelDefinitionPointer                            ; $43DB: $CD $0B $44
     call ReadSoundPointerByte                            ; $43DE: $CD $20 $44
     ld   e, a                                     ; $43E1: $5F
@@ -581,7 +585,7 @@ soundOpcode9D:
     ld   a, [hl]                                  ; $43FF: $7E
     pop  hl                                       ; $4400: $E1
     cp   $03                                      ; $4401: $FE $03
-    jr   z, jr_01B_43C1                           ; $4403: $28 $BC
+    jr   z, soundOpcode9DChannel3Handler_1B                           ; $4403: $28 $BC
 
 .nextOpcode
     call IncChannelDefinitionPointer                            ; $4405: $CD $0B $44

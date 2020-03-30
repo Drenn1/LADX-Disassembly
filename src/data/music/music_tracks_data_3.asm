@@ -70,7 +70,7 @@ ChannelDefinition4b61:: ; $6cb61
     db   F_4
     db   $00
 ChannelDefinition4b6f:: ; $6cb6f
-    db   $9d, $c1, $6e, $20
+    SET_WAVEFORM  waveform_1b_6ec1, $20
     db   $99
     db   $a2
     db   F_3
@@ -89,12 +89,12 @@ ChannelDefinition4b81:: ; $6cb81
     db   $a3
     db   $01
     db   $aa
-    db   $15 ; (UNKNOWN OP)
-    db   $1a ; (UNKNOWN OP)
-    db   $1a ; (UNKNOWN OP)
+    db   NOISE_5
+    db   NOISE_6
+    db   NOISE_6
     db   $9b, $1e
     db   $a0
-    db   $15 ; (UNKNOWN OP)
+    db   NOISE_5
     db   $9c
     db   $a7
     db   $01
@@ -182,7 +182,7 @@ ChannelDefinition4bd5:: ; $6cbd5
     db   $9c
     db   $00
 ChannelDefinition4c05:: ; $6cc05
-    db   $9d, $d1, $6e, $40
+    SET_WAVEFORM  waveform_1b_6ed1, $40
     db   $99
 ChannelDefinition4c0a:: ; $6cc0a
     db   $9b, $02
@@ -340,7 +340,7 @@ ChannelDefinition4cb2:: ; $6ccb2
     db   D_5
     db   $00
 ChannelDefinition4cbf:: ; $6ccbf
-    db   $9d, $2f, $4d, $20
+    SET_WAVEFORM  waveform_1b_4d2f, $20
     db   $a7
     db   $01
     db   $a1
@@ -442,10 +442,10 @@ ChannelDefinition4cef:: ; $6ccef
     db   D_3
     db   $98
     db   $00
-; UNREFERENCED DATA
+waveform_1b_4d2f:: ; $6cd2f
     db   $8a, $df, $da, $86, $31, $01, $36, $86, $8a, $df, $da, $86, $31, $01, $36, $86
 ChannelDefinition4d3f:: ; $6cd3f
-    db   $9d, $2f, $4d, $20
+    SET_WAVEFORM  waveform_1b_4d2f, $20
     db   $97
     db   $9b, $02
     db   $aa
@@ -514,37 +514,37 @@ ChannelDefinition4d3f:: ; $6cd3f
 ChannelDefinition4d88:: ; $6cd88
     db   $9b, $07
     db   $a1
-    db   $15 ; (UNKNOWN OP)
-    db   $15 ; (UNKNOWN OP)
-    db   $15 ; (UNKNOWN OP)
-    db   $15 ; (UNKNOWN OP)
+    db   NOISE_5
+    db   NOISE_5
+    db   NOISE_5
+    db   NOISE_5
     db   $ff ; (UNKNOWN OP)
-    db   $15 ; (UNKNOWN OP)
-    db   $15 ; (UNKNOWN OP)
-    db   $15 ; (UNKNOWN OP)
-    db   $15 ; (UNKNOWN OP)
-    db   $15 ; (UNKNOWN OP)
-    db   $15 ; (UNKNOWN OP)
-    db   $15 ; (UNKNOWN OP)
+    db   NOISE_5
+    db   NOISE_5
+    db   NOISE_5
+    db   NOISE_5
+    db   NOISE_5
+    db   NOISE_5
+    db   NOISE_5
     db   $ff ; (UNKNOWN OP)
-    db   $15 ; (UNKNOWN OP)
-    db   $15 ; (UNKNOWN OP)
-    db   $1a ; (UNKNOWN OP)
+    db   NOISE_5
+    db   NOISE_5
+    db   NOISE_6
     db   $9c
     db   $9b, $02
     db   $ff ; (UNKNOWN OP)
     db   $ff ; (UNKNOWN OP)
-    db   $15 ; (UNKNOWN OP)
-    db   $15 ; (UNKNOWN OP)
+    db   NOISE_5
+    db   NOISE_5
     db   $9c
     db   $ff ; (UNKNOWN OP)
     db   $ff ; (UNKNOWN OP)
-    db   $15 ; (UNKNOWN OP)
+    db   NOISE_5
     db   $ff ; (UNKNOWN OP)
-    db   $15 ; (UNKNOWN OP)
+    db   NOISE_5
     db   $ff ; (UNKNOWN OP)
     db   $ff ; (UNKNOWN OP)
-    db   $15 ; (UNKNOWN OP)
+    db   NOISE_5
     db   $00
 Music17:: ; $6cdac
     db   $00
@@ -618,10 +618,10 @@ ChannelDefinition4ddf:: ; $6cddf
     db   $a2
     db   $01
     db   $00
-; UNREFERENCED DATA
+waveform_1b_4e05:: ; $6ce05
     db   $44, $44, $44, $42, $00, $00, $00, $00, $44, $44, $44, $42, $00, $00, $00, $00
 ChannelDefinition4e15:: ; $6ce15
-    db   $9d, $05, $4e, $20
+    SET_WAVEFORM  waveform_1b_4e05, $20
     db   $99
     db   $a7
     db   C_4

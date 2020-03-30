@@ -1,3 +1,29 @@
+SET_WAVEFORM: macro
+    db $9d
+    dw \1
+    db \2
+endm
+
+; Noise (channel 4) doesn't really correspond to notes like the other channels.
+NOISE_1     EQU $01
+NOISE_2     EQU $06
+NOISE_3     EQU $0b
+NOISE_4     EQU $10
+NOISE_5     EQU $15
+NOISE_6     EQU $1a
+NOISE_7     EQU $1f
+NOISE_8     EQU $24
+NOISE_9     EQU $29
+NOISE_10    EQU $2e
+NOISE_11    EQU $33
+NOISE_12    EQU $38
+NOISE_13    EQU $3d
+NOISE_14    EQU $42
+NOISE_15    EQU $47
+NOISE_16    EQU $4c
+NOISE_17    EQU $51
+
+; Notes for channels 1-3
 C_1     EQU $02
 C#1     EQU $04
 D_1     EQU $06
