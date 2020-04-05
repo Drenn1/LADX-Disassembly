@@ -72,10 +72,8 @@ def getNoteName(note, channel):
         assert(note >= 2 and note <= 0x8f)
         note -= 2
         octave = note // 24 + 1
-        if note % 2 == 1:
-            return NOTE_STRINGS[(note//2) % 12] + str(octave) + '+1'
-        else:
-            return NOTE_STRINGS[(note//2) % 12] + str(octave)
+        assert(note % 2 == 0)
+        return NOTE_STRINGS[(note//2) % 12] + str(octave)
 
 def getWaveformName(addr):
     bank = addr // 0x4000
@@ -448,7 +446,6 @@ for addr in waveformAddresses:
     data.setLabel(getWaveformName(addr))
     dataSet.addData(data)
 
-print('Done')
 
 # Hardcoded offsets for start and end of sound data segments
 f = open('src/data/music/music_tracks_data_3.asm', 'w')
