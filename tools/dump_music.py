@@ -158,7 +158,7 @@ class DataSet:
     def printLabelsIfAvailable(self, addr):
         if not self.hasLabelAt(addr):
             return ''
-        s = ''
+        s = '\n'
         for label in self.labelDict[addr]:
             s += '{0}'.format(label)
             if label[0] != '.':
@@ -189,7 +189,7 @@ class DataSet:
         out = ''
         for d in dataList:
             out += d.print()
-        return out
+        return out.strip()
 
 
 
@@ -222,8 +222,21 @@ parsedMusicAddresses = set()
 
 waveformAddresses = set()
 
+opNames = {
+        0x00: 'end_def',
+        0x01: 'rest',
+        0x94: 'unknownop_94',
+        0x95: 'disable_unknown1',
+        0x96: 'enable_unknown1',
+        0x97: 'enable_unknown2',
+        0x98: 'disable_unknown2',
+        0x99: 'enable_envelope',
+        0x9a: 'disable_envelope',
+    }
+
 def parseSoundChannelDefinition(ptr, channelIndex, endAddr, printPass):
     out = ''
+    inLoop = False
 
     def addByteOperand():
         nonlocal out, ptr
@@ -237,57 +250,70 @@ def parseSoundChannelDefinition(ptr, channelIndex, endAddr, printPass):
         ptr += 2
         out += ', ${0}'.format(myhex(b, 4))
 
+    def indent():
+        if inLoop:
+            return ' ' * 8
+        else:
+            return ' ' * 4
+
     while True:
         if endAddr != -1 and ptr >= endAddr:
             break
         op = rom[ptr]
         ptr += 1
         if op == 0:
-            out += '    db   ${0}'.format(myhex(op))
+            out += indent() + '{0}'.format(opNames[op])
             out += '\n'
             break
-        elif (op >= 0x94 and op <= 0x9a) or op == 0x9c:
-            out += '    db   ${0}'.format(myhex(op))
+        elif op == 0x01 or op >= 0x94 and op <= 0x9a:
+            out += indent() + '{0}'.format(opNames[op])
             out += '\n'
         elif op == 0x9b:
-            out += '    db   ${0}'.format(myhex(op))
-            addByteOperand()
-            out += '\n'
+            if not (len(out) >= 2 and out[-1] == '\n' and out[-2] == '\n'):
+                out += '\n'
+            out += indent() + 'begin_loop ${0}\n'.format(myhex(rom[ptr]))
+            ptr += 1
+            if inLoop:
+                print('WARNING: begin_loop opcode within a loop')
+            inLoop = True
+        elif op == 0x9c:
+            if not inLoop:
+                print('WARNING: begin_loop opcode outside a loop')
+            inLoop = False
+            out += indent() + 'next_loop\n\n'
         elif op == 0x9d:
             if channelIndex == 3:
                 waveformAddr = bankedAddress(MUSIC_BANK, read16(rom, ptr))
                 if not printPass:
                     waveformAddresses.add(waveformAddr)
                 waveformName = getWaveformName(waveformAddr)
-                out += '    SET_WAVEFORM  {0}, ${1}'.format(waveformName, myhex(rom[ptr+2]))
+                out += indent() + 'set_waveform {0}, ${1}'.format(waveformName, myhex(rom[ptr+2]))
                 ptr += 3
                 out += '\n'
             else:
-                out += '    db   ${0}'.format(myhex(op))
+                out += indent() + 'db   ${0}'.format(myhex(op))
                 addByteOperand()
                 addByteOperand()
                 addByteOperand()
                 out += '\n'
         elif op == 0x9e:
-            out += '    db   ${0}'.format(myhex(op))
+            out += indent() + 'db   ${0}'.format(myhex(op))
             w = read16(rom, ptr)
             ptr += 2
-            out += '\n    dw   ${0}\n'.format(myhex(w, 4))
+            out += '\n'
+            out += indent() + 'dw   ${0}\n'.format(myhex(w, 4))
         elif op == 0x9f:
-            out += '    db   ${0}'.format(myhex(op))
+            out += indent() + 'db   ${0}'.format(myhex(op))
             addByteOperand()
             out += '\n'
         elif op >= 0xa0 and op <= 0xaf:
-            out += '    db   ${0}'.format(myhex(op))
-            out += '\n'
-        elif op == 1:
-            out += '    db   $01'
+            out += indent() + 'notelen {0}'.format(op&0x0f)
             out += '\n'
         elif op >= 2 and op <= 0x8f:
-            out += '    db   {0}'.format(getNoteName(op, channelIndex))
+            out += indent() + 'note    {0}'.format(getNoteName(op, channelIndex))
             out += '\n'
         else:
-            out += '    db   ${0} ; (UNKNOWN OP)'.format(myhex(op))
+            out += indent() + 'db   ${0} ; (UNKNOWN OP)'.format(myhex(op))
             out += '\n'
     return (ptr, out)
 

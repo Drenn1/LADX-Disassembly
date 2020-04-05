@@ -20,16 +20,20 @@ Music30:: ; $6f100
     dw   Music21Channel2 ; 0x7111
     dw   Music21Channel3 ; 0x711d
     dw   $0000
+
 Music21Channel1:: ; $6f10b
     dw   ChannelDefinition712f
     dw   $ffff, MusicLoop7113
+
 Music21Channel2:: ; $6f111
     dw   ChannelDefinition7137
+
 MusicLoop7113:: ; $6f113
     dw   ChannelDefinition713c
     dw   ChannelDefinition713c
     dw   ChannelDefinition71b2
     dw   $ffff, MusicLoop7113
+
 Music21Channel3:: ; $6f11d
     dw   ChannelDefinition7228
     dw   ChannelDefinition722d
@@ -38,463 +42,473 @@ Music21Channel3:: ; $6f11d
     dw   $ffff, Music21Channel3
 ; UNREFERENCED DATA
     db   $22, $73, $ff, $ff, $29, $71
+
 ChannelDefinition712f:: ; $6f12f
     db   $9d, $37, $00, $80
-    db   $aa
-    db   $01
-    db   $01
-    db   $00
+    notelen 10
+    rest
+    rest
+    end_def
+
 ChannelDefinition7137:: ; $6f137
     db   $9d, $47, $00, $80
-    db   $00
+    end_def
+
 ChannelDefinition713c:: ; $6f13c
-    db   $a2
-    db   G_4
-    db   A#4
-    db   D_5
-    db   D#5
-    db   G_4
-    db   A#4
-    db   D_5
-    db   D#5
-    db   G_4
-    db   A#4
-    db   D_5
-    db   D#5
-    db   G_4
-    db   A#4
-    db   D_5
-    db   D#5
-    db   F#4
-    db   A_4
-    db   D_5
-    db   D#5
-    db   F#4
-    db   A_4
-    db   D_5
-    db   D#5
-    db   F#4
-    db   A_4
-    db   D_5
-    db   D#5
-    db   F#4
-    db   A_4
-    db   D_5
-    db   D#5
-    db   F_4
-    db   G#4
-    db   D_5
-    db   D#5
-    db   F_4
-    db   G#4
-    db   D_5
-    db   D#5
-    db   F_4
-    db   G#4
-    db   D_5
-    db   D#5
-    db   F_4
-    db   G#4
-    db   D_5
-    db   D#5
-    db   E_4
-    db   G_4
-    db   D_5
-    db   D#5
-    db   E_4
-    db   G_4
-    db   D_5
-    db   D#5
-    db   E_4
-    db   G_4
-    db   D_5
-    db   D#5
-    db   E_4
-    db   G_4
-    db   D_5
-    db   D#5
-    db   D#4
-    db   G_4
-    db   C_5
-    db   D_5
-    db   D#4
-    db   G_4
-    db   C_5
-    db   D_5
-    db   D#4
-    db   G_4
-    db   C_5
-    db   D_5
-    db   D#4
-    db   G_4
-    db   C_5
-    db   D_5
-    db   D_4
-    db   G_4
-    db   C_5
-    db   D_5
-    db   D_4
-    db   G_4
-    db   C_5
-    db   D_5
-    db   D_4
-    db   G_4
-    db   C_5
-    db   D_5
-    db   D_4
-    db   G_4
-    db   C_5
-    db   D_5
-    db   C_4
-    db   F#4
-    db   A_4
-    db   C_5
-    db   F#4
-    db   A_4
-    db   C_5
-    db   D#5
-    db   A_4
-    db   C_5
-    db   D#5
-    db   C_5
-    db   D#5
-    db   F#5
-    db   D#5
-    db   F#5
-    db   A_5
-    db   F#5
-    db   A_5
-    db   C_6
-    db   $00
+    notelen 2
+    note    G_4
+    note    A#4
+    note    D_5
+    note    D#5
+    note    G_4
+    note    A#4
+    note    D_5
+    note    D#5
+    note    G_4
+    note    A#4
+    note    D_5
+    note    D#5
+    note    G_4
+    note    A#4
+    note    D_5
+    note    D#5
+    note    F#4
+    note    A_4
+    note    D_5
+    note    D#5
+    note    F#4
+    note    A_4
+    note    D_5
+    note    D#5
+    note    F#4
+    note    A_4
+    note    D_5
+    note    D#5
+    note    F#4
+    note    A_4
+    note    D_5
+    note    D#5
+    note    F_4
+    note    G#4
+    note    D_5
+    note    D#5
+    note    F_4
+    note    G#4
+    note    D_5
+    note    D#5
+    note    F_4
+    note    G#4
+    note    D_5
+    note    D#5
+    note    F_4
+    note    G#4
+    note    D_5
+    note    D#5
+    note    E_4
+    note    G_4
+    note    D_5
+    note    D#5
+    note    E_4
+    note    G_4
+    note    D_5
+    note    D#5
+    note    E_4
+    note    G_4
+    note    D_5
+    note    D#5
+    note    E_4
+    note    G_4
+    note    D_5
+    note    D#5
+    note    D#4
+    note    G_4
+    note    C_5
+    note    D_5
+    note    D#4
+    note    G_4
+    note    C_5
+    note    D_5
+    note    D#4
+    note    G_4
+    note    C_5
+    note    D_5
+    note    D#4
+    note    G_4
+    note    C_5
+    note    D_5
+    note    D_4
+    note    G_4
+    note    C_5
+    note    D_5
+    note    D_4
+    note    G_4
+    note    C_5
+    note    D_5
+    note    D_4
+    note    G_4
+    note    C_5
+    note    D_5
+    note    D_4
+    note    G_4
+    note    C_5
+    note    D_5
+    note    C_4
+    note    F#4
+    note    A_4
+    note    C_5
+    note    F#4
+    note    A_4
+    note    C_5
+    note    D#5
+    note    A_4
+    note    C_5
+    note    D#5
+    note    C_5
+    note    D#5
+    note    F#5
+    note    D#5
+    note    F#5
+    note    A_5
+    note    F#5
+    note    A_5
+    note    C_6
+    end_def
+
 ChannelDefinition71b2:: ; $6f1b2
-    db   $a2
-    db   D_5
-    db   A#4
-    db   G_4
-    db   A#4
-    db   D_5
-    db   A#4
-    db   G_4
-    db   A#4
-    db   D_5
-    db   A#4
-    db   G_4
-    db   A#4
-    db   D_5
-    db   A#4
-    db   G_4
-    db   A#4
-    db   D_5
-    db   A_4
-    db   F#4
-    db   A_4
-    db   D_5
-    db   A_4
-    db   F#4
-    db   A_4
-    db   D_5
-    db   A_4
-    db   F#4
-    db   A_4
-    db   D_5
-    db   A_4
-    db   F#4
-    db   A_4
-    db   D_5
-    db   G#4
-    db   F_4
-    db   G#4
-    db   D_5
-    db   G#4
-    db   F_4
-    db   G#4
-    db   D_5
-    db   G#4
-    db   F_4
-    db   G#4
-    db   D_5
-    db   G#4
-    db   F_4
-    db   G#4
-    db   D_5
-    db   G_4
-    db   E_4
-    db   G_4
-    db   D_5
-    db   G_4
-    db   E_4
-    db   G_4
-    db   D_5
-    db   G_4
-    db   E_4
-    db   G_4
-    db   D_5
-    db   G_4
-    db   E_4
-    db   G_4
-    db   D_5
-    db   G_4
-    db   D#4
-    db   G_4
-    db   D_5
-    db   G_4
-    db   D#4
-    db   G_4
-    db   D_5
-    db   G_4
-    db   D#4
-    db   G_4
-    db   D_5
-    db   G_4
-    db   D#4
-    db   G_4
-    db   D_5
-    db   G_4
-    db   D_4
-    db   G_4
-    db   D_5
-    db   G_4
-    db   D_4
-    db   G_4
-    db   D_5
-    db   G_4
-    db   D_4
-    db   G_4
-    db   D_5
-    db   G_4
-    db   D_4
-    db   G_4
-    db   C_4
-    db   F#4
-    db   A_4
-    db   C_5
-    db   F#4
-    db   A_4
-    db   C_5
-    db   D#5
-    db   A_4
-    db   C_5
-    db   D#5
-    db   C_5
-    db   D#5
-    db   F#5
-    db   D#5
-    db   F#5
-    db   A_5
-    db   F#5
-    db   A_5
-    db   C_6
-    db   $00
+    notelen 2
+    note    D_5
+    note    A#4
+    note    G_4
+    note    A#4
+    note    D_5
+    note    A#4
+    note    G_4
+    note    A#4
+    note    D_5
+    note    A#4
+    note    G_4
+    note    A#4
+    note    D_5
+    note    A#4
+    note    G_4
+    note    A#4
+    note    D_5
+    note    A_4
+    note    F#4
+    note    A_4
+    note    D_5
+    note    A_4
+    note    F#4
+    note    A_4
+    note    D_5
+    note    A_4
+    note    F#4
+    note    A_4
+    note    D_5
+    note    A_4
+    note    F#4
+    note    A_4
+    note    D_5
+    note    G#4
+    note    F_4
+    note    G#4
+    note    D_5
+    note    G#4
+    note    F_4
+    note    G#4
+    note    D_5
+    note    G#4
+    note    F_4
+    note    G#4
+    note    D_5
+    note    G#4
+    note    F_4
+    note    G#4
+    note    D_5
+    note    G_4
+    note    E_4
+    note    G_4
+    note    D_5
+    note    G_4
+    note    E_4
+    note    G_4
+    note    D_5
+    note    G_4
+    note    E_4
+    note    G_4
+    note    D_5
+    note    G_4
+    note    E_4
+    note    G_4
+    note    D_5
+    note    G_4
+    note    D#4
+    note    G_4
+    note    D_5
+    note    G_4
+    note    D#4
+    note    G_4
+    note    D_5
+    note    G_4
+    note    D#4
+    note    G_4
+    note    D_5
+    note    G_4
+    note    D#4
+    note    G_4
+    note    D_5
+    note    G_4
+    note    D_4
+    note    G_4
+    note    D_5
+    note    G_4
+    note    D_4
+    note    G_4
+    note    D_5
+    note    G_4
+    note    D_4
+    note    G_4
+    note    D_5
+    note    G_4
+    note    D_4
+    note    G_4
+    note    C_4
+    note    F#4
+    note    A_4
+    note    C_5
+    note    F#4
+    note    A_4
+    note    C_5
+    note    D#5
+    note    A_4
+    note    C_5
+    note    D#5
+    note    C_5
+    note    D#5
+    note    F#5
+    note    D#5
+    note    F#5
+    note    A_5
+    note    F#5
+    note    A_5
+    note    C_6
+    end_def
+
 ChannelDefinition7228:: ; $6f228
-    SET_WAVEFORM  waveform_1b_7349, $21
-    db   $00
+    set_waveform waveform_1b_7349, $21
+    end_def
+
 ChannelDefinition722d:: ; $6f22d
-    db   $a5
-    db   G_2
-    db   $a4
-    db   A#2
-    db   D_3
-    db   C#3
-    db   $ae
-    db   F#2
-    db   $a5
-    db   F_2
-    db   $a7
-    db   F_2
-    db   G#2
-    db   $a3
-    db   C#3
-    db   $a4
-    db   C_3
-    db   $ae
-    db   E_2
-    db   $a2
-    db   D#2
-    db   D_2
-    db   $a8
-    db   D#2
-    db   $a7
-    db   G_2
-    db   D#3
-    db   $a3
-    db   D_3
-    db   $a2
-    db   D_2
-    db   C#2
-    db   $a8
-    db   D_2
-    db   $a7
-    db   G_2
-    db   D_3
-    db   $a3
-    db   C#3
-    db   $a2
-    db   D_2
-    db   F#2
-    db   A_2
-    db   F#2
-    db   A_2
-    db   C_3
-    db   A_2
-    db   C_3
-    db   D#3
-    db   C_3
-    db   D#3
-    db   F#3
-    db   A_3
-    db   F#3
-    db   D#3
-    db   C_3
-    db   D#3
-    db   C_3
-    db   A_2
-    db   F#2
-    db   $00
+    notelen 5
+    note    G_2
+    notelen 4
+    note    A#2
+    note    D_3
+    note    C#3
+    notelen 14
+    note    F#2
+    notelen 5
+    note    F_2
+    notelen 7
+    note    F_2
+    note    G#2
+    notelen 3
+    note    C#3
+    notelen 4
+    note    C_3
+    notelen 14
+    note    E_2
+    notelen 2
+    note    D#2
+    note    D_2
+    notelen 8
+    note    D#2
+    notelen 7
+    note    G_2
+    note    D#3
+    notelen 3
+    note    D_3
+    notelen 2
+    note    D_2
+    note    C#2
+    notelen 8
+    note    D_2
+    notelen 7
+    note    G_2
+    note    D_3
+    notelen 3
+    note    C#3
+    notelen 2
+    note    D_2
+    note    F#2
+    note    A_2
+    note    F#2
+    note    A_2
+    note    C_3
+    note    A_2
+    note    C_3
+    note    D#3
+    note    C_3
+    note    D#3
+    note    F#3
+    note    A_3
+    note    F#3
+    note    D#3
+    note    C_3
+    note    D#3
+    note    C_3
+    note    A_2
+    note    F#2
+    end_def
+
 ChannelDefinition726a:: ; $6f26a
-    SET_WAVEFORM  waveform_1b_7359, $40
-    db   $99
-    db   $a2
-    db   D_3
-    db   D_3
-    db   D_3
-    db   D_3
-    SET_WAVEFORM  waveform_1b_7369, $40
-    db   D_3
-    db   D_3
-    db   D_3
-    db   D_3
-    SET_WAVEFORM  waveform_1b_7359, $40
-    db   D_3
-    db   D_3
-    db   D_3
-    db   D_3
-    SET_WAVEFORM  waveform_1b_7369, $40
-    db   D_3
-    db   D_3
-    db   D_3
-    db   D_3
-    SET_WAVEFORM  waveform_1b_7359, $40
-    db   $01
-    db   $01
-    db   $01
-    db   $01
-    db   C#3
-    db   C#3
-    db   C#3
-    db   C#3
-    db   A_2
-    db   A_2
-    db   A_2
-    db   A_2
-    SET_WAVEFORM  waveform_1b_7369, $40
-    db   A_2
-    db   A_2
-    db   A_2
-    db   A_2
-    SET_WAVEFORM  waveform_1b_7359, $40
-    db   C_3
-    db   C_3
-    db   C_3
-    db   C_3
-    SET_WAVEFORM  waveform_1b_7369, $40
-    db   C_3
-    db   C_3
-    db   C_3
-    db   C_3
-    SET_WAVEFORM  waveform_1b_7359, $40
-    db   $01
-    db   $01
-    db   $01
-    db   $01
-    db   D_3
-    db   D_3
-    db   C_3
-    db   C_3
-    db   B_2
-    db   B_2
-    db   B_2
-    db   B_2
-    SET_WAVEFORM  waveform_1b_7369, $40
-    db   B_2
-    db   B_2
-    db   B_2
-    db   B_2
-    SET_WAVEFORM  waveform_1b_7359, $40
-    db   $01
-    db   $01
-    db   $01
-    db   $01
-    db   G_2
-    db   G_2
-    db   A_2
-    db   A_2
-    db   A#2
-    db   A#2
-    db   A#2
-    db   A#2
-    SET_WAVEFORM  waveform_1b_7369, $40
-    db   A#2
-    db   A#2
-    db   A#2
-    db   A#2
-    SET_WAVEFORM  waveform_1b_7359, $40
-    db   $01
-    db   $01
-    db   A#2
-    db   A#2
-    db   C_3
-    db   C_3
-    db   A#2
-    db   A#2
-    db   A_2
-    db   A_2
-    db   A_2
-    db   A_2
-    SET_WAVEFORM  waveform_1b_7369, $40
-    db   A_2
-    db   A_2
-    db   A_2
-    db   A_2
-    SET_WAVEFORM  waveform_1b_7359, $40
-    db   $01
-    db   $01
-    db   G_2
-    db   G_2
-    db   F#2
-    db   F#2
-    db   G_2
-    db   G_2
-    db   A_2
-    db   A_2
-    db   A_2
-    db   A_2
-    SET_WAVEFORM  waveform_1b_7369, $40
-    db   A_2
-    db   A_2
-    db   A_2
-    db   A_2
-    db   $01
-    db   $01
-    db   $01
-    db   $01
-    db   $01
-    db   $01
-    db   $01
-    db   $01
-    db   $01
-    db   $01
-    db   $01
-    db   $01
-    db   $9a
-    db   $00
+    set_waveform waveform_1b_7359, $40
+    enable_envelope
+    notelen 2
+    note    D_3
+    note    D_3
+    note    D_3
+    note    D_3
+    set_waveform waveform_1b_7369, $40
+    note    D_3
+    note    D_3
+    note    D_3
+    note    D_3
+    set_waveform waveform_1b_7359, $40
+    note    D_3
+    note    D_3
+    note    D_3
+    note    D_3
+    set_waveform waveform_1b_7369, $40
+    note    D_3
+    note    D_3
+    note    D_3
+    note    D_3
+    set_waveform waveform_1b_7359, $40
+    rest
+    rest
+    rest
+    rest
+    note    C#3
+    note    C#3
+    note    C#3
+    note    C#3
+    note    A_2
+    note    A_2
+    note    A_2
+    note    A_2
+    set_waveform waveform_1b_7369, $40
+    note    A_2
+    note    A_2
+    note    A_2
+    note    A_2
+    set_waveform waveform_1b_7359, $40
+    note    C_3
+    note    C_3
+    note    C_3
+    note    C_3
+    set_waveform waveform_1b_7369, $40
+    note    C_3
+    note    C_3
+    note    C_3
+    note    C_3
+    set_waveform waveform_1b_7359, $40
+    rest
+    rest
+    rest
+    rest
+    note    D_3
+    note    D_3
+    note    C_3
+    note    C_3
+    note    B_2
+    note    B_2
+    note    B_2
+    note    B_2
+    set_waveform waveform_1b_7369, $40
+    note    B_2
+    note    B_2
+    note    B_2
+    note    B_2
+    set_waveform waveform_1b_7359, $40
+    rest
+    rest
+    rest
+    rest
+    note    G_2
+    note    G_2
+    note    A_2
+    note    A_2
+    note    A#2
+    note    A#2
+    note    A#2
+    note    A#2
+    set_waveform waveform_1b_7369, $40
+    note    A#2
+    note    A#2
+    note    A#2
+    note    A#2
+    set_waveform waveform_1b_7359, $40
+    rest
+    rest
+    note    A#2
+    note    A#2
+    note    C_3
+    note    C_3
+    note    A#2
+    note    A#2
+    note    A_2
+    note    A_2
+    note    A_2
+    note    A_2
+    set_waveform waveform_1b_7369, $40
+    note    A_2
+    note    A_2
+    note    A_2
+    note    A_2
+    set_waveform waveform_1b_7359, $40
+    rest
+    rest
+    note    G_2
+    note    G_2
+    note    F#2
+    note    F#2
+    note    G_2
+    note    G_2
+    note    A_2
+    note    A_2
+    note    A_2
+    note    A_2
+    set_waveform waveform_1b_7369, $40
+    note    A_2
+    note    A_2
+    note    A_2
+    note    A_2
+    rest
+    rest
+    rest
+    rest
+    rest
+    rest
+    rest
+    rest
+    rest
+    rest
+    rest
+    rest
+    disable_envelope
+    end_def
 ; UNREFERENCED DATA
     db   $9b, $07, $a3, $15, $15, $1f, $a2, $06, $a3, $15, $15, $a2, $15, $a3, $10, $9c
     db   $a2, $15, $15, $15, $15, $a3, $01, $a2, $15, $15, $15, $15, $a3, $01, $a2, $15
     db   $15, $15, $15, $a3, $06, $06, $00
+
 waveform_1b_7349:: ; $6f349
     db   $66, $66, $66, $66, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+
 waveform_1b_7359:: ; $6f359
     db   $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09
+
 waveform_1b_7369:: ; $6f369
     db   $05, $05, $05, $05, $05, $05, $05, $05, $05, $05, $05, $05, $05, $05, $05, $05
 ; UNREFERENCED DATA

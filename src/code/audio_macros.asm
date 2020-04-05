@@ -1,8 +1,69 @@
-SET_WAVEFORM: macro
+set_waveform: macro
     db $9d
     dw \1
     db \2
 endm
+
+unknownop_94: macro
+    db $94
+endm
+
+disable_unknown1: macro
+    db $95
+endm
+
+enable_unknown1: macro
+    db $96
+endm
+
+enable_unknown2: macro
+    db $97
+endm
+
+disable_unknown2: macro
+    db $98
+endm
+
+enable_envelope: macro
+    db $99
+endm
+
+disable_envelope: macro
+    db $9a
+endm
+
+; Sets a loop point to jump back to with the NEXT_LOOP macro.
+; Arg1: Number of times to loop. (NEXT_LOOP macro will jump back that many
+; times.)
+begin_loop: macro
+    db $9b, \1
+endm
+
+next_loop: macro
+    db $9c
+endm
+
+notelen: macro
+    ; If someone figures out how to "assert \1 <= $f" please add it here!
+    db $a0 + \1
+endm
+
+note: macro
+    REPT _NARG
+        ; Desired assertion: \1 >= $02 && \1 <= $0e && (\1 % 2) == 0
+        db \1
+        SHIFT
+    ENDR
+endm
+
+end_def: macro
+    db $00
+endm
+
+rest: macro
+    db $01
+endm
+
 
 ; Noise (channel 4) doesn't really correspond to notes like the other channels.
 NOISE_1     EQU $01
