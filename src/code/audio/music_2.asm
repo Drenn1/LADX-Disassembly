@@ -36,7 +36,7 @@ PlayMusicTrack_1E_EntryPoint::
 jr_01E_4028:
     call func_01E_4581                            ; $4028: $CD $81 $45
 
-StopAllActiveAudioAndReturn::
+DontPlayAudio_1E::
     xor  a                                        ; $402B: $AF
     ld   [wActiveJingle], a                       ; $402C: $EA $60 $D3
     ld   [wActiveMusicTrack], a                   ; $402F: $EA $68 $D3
@@ -45,8 +45,9 @@ StopAllActiveAudioAndReturn::
     ret                                           ; $4038: $C9
 
 BeginMusicTrack_1E::
+    ; [$D369] = [wActiveMusicTrack]
     ld   [hl], a                                  ; $4039: $77
-    call func_01E_4163                            ; $403A: $CD $63 $41
+    call BeginMusicTrack_Dispatch_1E                            ; $403A: $CD $63 $41
     jr   jr_01E_4028                              ; $403D: $18 $E9
 
 func_01E_403F::
@@ -109,23 +110,44 @@ jr_01E_4076:
     ld   [de], a                                  ; $407D: $12
     ret                                           ; $407E: $C9
 
+
+; Music ID numbers are based on values written to wActiveMusicTrack. They don't
+; match up with "constants/sfx.asm" for some reason.
 MusicDataPointerTable_1E::
-    dw   Music31
-    dw   Music32
-    dw   Music33
-    dw   Music34
-    dw   Music35
-    dw   Music36
-    dw   Music37
-    dw   Music38
-    dw   Music39
-    dw   Music3a
-    dw   Music3b
-    dw   Music3c
-    dw   Music3d
-    dw   Music3e
-    dw   Music3f
-    dw   Music40
+    dw   Music11
+    dw   Music12
+    dw   Music13
+    dw   Music14
+    dw   Music15
+    dw   Music16
+    dw   Music17
+    dw   Music18
+    dw   Music19
+    dw   Music1a
+    dw   Music1b
+    dw   Music1c
+    dw   Music1d
+    dw   Music1e
+    dw   Music1f
+    dw   Music20
+
+    dw   Music21
+    dw   Music22
+    dw   Music23
+    dw   Music24
+    dw   Music25
+    dw   Music26
+    dw   Music27
+    dw   Music28
+    dw   Music29
+    dw   Music2a
+    dw   Music2b
+    dw   Music2c
+    dw   Music2d
+    dw   Music2e
+    dw   Music2f
+    dw   Music30
+
     dw   Music41
     dw   Music42
     dw   Music43
@@ -142,6 +164,7 @@ MusicDataPointerTable_1E::
     dw   Music4e
     dw   Music4f
     dw   Music50
+
     dw   Music51
     dw   Music52
     dw   Music53
@@ -158,22 +181,6 @@ MusicDataPointerTable_1E::
     dw   Music5e
     dw   Music5f
     dw   Music60
-    dw   Music61
-    dw   Music62
-    dw   Music63
-    dw   Music64
-    dw   Music65
-    dw   Music66
-    dw   Music67
-    dw   Music68
-    dw   Music69
-    dw   Music6a
-    dw   Music6b
-    dw   Music6c
-    dw   Music6d
-    dw   Music6e
-    dw   Music6f
-    dw   Music70
 
 func_01E_40FF::
     inc  e                                        ; $40FF: $1C
@@ -246,45 +253,45 @@ jr_01E_4137:
     call func_01E_411B                            ; $415D: $CD $1B $41
     jp   label_01E_4D1D                                    ; $4160: $C3 $1D $4D
 
-func_01E_4163::
+BeginMusicTrack_Dispatch_1E::
     ld   b, a                                     ; $4163: $47
     ld   a, [wMusicMode]                               ; $4164: $FA $CE $D3
     and  a                                        ; $4167: $A7
-    jp   nz, StopAllActiveAudioAndReturn          ; $4168: $C2 $2B $40
+    jp   nz, DontPlayAudio_1E          ; $4168: $C2 $2B $40
 
     ld   a, b                                     ; $416B: $78
     cp   $FF                                      ; $416C: $FE $FF
     jr   z, jr_01E_4137                           ; $416E: $28 $C7
 
     cp   $11                                      ; $4170: $FE $11
-    jr   nc, jr_01E_4177                          ; $4172: $30 $03
+    jr   nc, .above10                          ; $4172: $30 $03
 
-    jp   StopAllActiveAudioAndReturn              ; $4174: $C3 $2B $40
+    jp   DontPlayAudio_1E              ; $4174: $C3 $2B $40
 
-jr_01E_4177:
+.above10
     cp   $21                                      ; $4177: $FE $21
-    jr   nc, jr_01E_417F                          ; $4179: $30 $04
+    jr   nc, .above20                          ; $4179: $30 $04
 
     add  $F0                                      ; $417B: $C6 $F0
-    jr   jr_01E_4193                              ; $417D: $18 $14
+    jr   .playAudio                              ; $417D: $18 $14
 
-jr_01E_417F:
+.above20
     cp   $31                                      ; $417F: $FE $31
-    jr   nc, jr_01E_4187                          ; $4181: $30 $04
+    jr   nc, .above30                          ; $4181: $30 $04
 
     add  $F0                                      ; $4183: $C6 $F0
-    jr   jr_01E_4193                              ; $4185: $18 $0C
+    jr   .playAudio                              ; $4185: $18 $0C
 
-jr_01E_4187:
+.above30
     cp   $41                                      ; $4187: $FE $41
-    jp   c, StopAllActiveAudioAndReturn                        ; $4189: $DA $2B $40
+    jp   c, DontPlayAudio_1E                        ; $4189: $DA $2B $40
 
     cp   $61                                      ; $418C: $FE $61
-    jp   nc, StopAllActiveAudioAndReturn                       ; $418E: $D2 $2B $40
+    jp   nc, DontPlayAudio_1E                       ; $418E: $D2 $2B $40
 
     add  $E0                                      ; $4191: $C6 $E0
 
-jr_01E_4193:
+.playAudio
     dec  hl                                       ; $4193: $2B
     ld   [hl+], a                                 ; $4194: $22
 
@@ -793,7 +800,7 @@ func_01E_4581::
 
     ld   a, [wMusicMode]                               ; $4587: $FA $CE $D3
     and  a                                        ; $458A: $A7
-    jp   nz, StopAllActiveAudioAndReturn                       ; $458B: $C2 $2B $40
+    jp   nz, DontPlayAudio_1E                       ; $458B: $C2 $2B $40
 
     call func_01E_4387                            ; $458E: $CD $87 $43
     ld   a, $01                                   ; $4591: $3E $01

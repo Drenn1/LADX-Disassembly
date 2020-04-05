@@ -1,31 +1,31 @@
-Music21:: ; $6f100
-Music22:: ; $6f100
-Music23:: ; $6f100
-Music24:: ; $6f100
-Music25:: ; $6f100
-Music26:: ; $6f100
-Music27:: ; $6f100
-Music28:: ; $6f100
-Music29:: ; $6f100
-Music2a:: ; $6f100
-Music2b:: ; $6f100
-Music2c:: ; $6f100
-Music2d:: ; $6f100
-Music2e:: ; $6f100
-Music2f:: ; $6f100
-Music30:: ; $6f100
+Music61:: ; $6f100
+Music62:: ; $6f100
+Music63:: ; $6f100
+Music64:: ; $6f100
+Music65:: ; $6f100
+Music66:: ; $6f100
+Music67:: ; $6f100
+Music68:: ; $6f100
+Music69:: ; $6f100
+Music6a:: ; $6f100
+Music6b:: ; $6f100
+Music6c:: ; $6f100
+Music6d:: ; $6f100
+Music6e:: ; $6f100
+Music6f:: ; $6f100
+Music70:: ; $6f100
     db   $00
     dw   MusicSpeedData_1b_4ac8
-    dw   Music21Channel1 ; 0x710b
-    dw   Music21Channel2 ; 0x7111
-    dw   Music21Channel3 ; 0x711d
+    dw   Music61Channel1 ; 0x710b
+    dw   Music61Channel2 ; 0x7111
+    dw   Music61Channel3 ; 0x711d
     dw   $0000
 
-Music21Channel1:: ; $6f10b
+Music61Channel1:: ; $6f10b
     dw   ChannelDefinition_1b_712f
     dw   $ffff, MusicLoop_1b_7113
 
-Music21Channel2:: ; $6f111
+Music61Channel2:: ; $6f111
     dw   ChannelDefinition_1b_7137
 
 MusicLoop_1b_7113:: ; $6f113
@@ -34,12 +34,12 @@ MusicLoop_1b_7113:: ; $6f113
     dw   ChannelDefinition_1b_71b2
     dw   $ffff, MusicLoop_1b_7113
 
-Music21Channel3:: ; $6f11d
+Music61Channel3:: ; $6f11d
     dw   ChannelDefinition_1b_7228
     dw   ChannelDefinition_1b_722d
     dw   ChannelDefinition_1b_722d
     dw   ChannelDefinition_1b_726a
-    dw   $ffff, Music21Channel3
+    dw   $ffff, Music61Channel3
 ; UNREFERENCED DATA
     db   $22, $73, $ff, $ff, $29, $71
 

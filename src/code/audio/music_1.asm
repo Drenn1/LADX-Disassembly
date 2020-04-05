@@ -39,7 +39,7 @@ jr_01B_4028:
     call UpdateAllMusicChannels_1B                            ; $4028: $CD $0F $45
     ret                                           ; $402B: $C9
 
-label_01B_402C:
+DontPlayAudio_1B:
     xor  a                                        ; $402C: $AF
     ld   [wMusicMode], a                               ; $402D: $EA $CE $D3
     ret                                           ; $4030: $C9
@@ -111,6 +111,9 @@ jr_01B_406E:
     ld   [de], a                                  ; $4075: $12
     ret                                           ; $4076: $C9
 
+
+; Music ID numbers are based on values written to wActiveMusicTrack. They don't
+; match up with "constants/sfx.asm" for some reason.
 MusicDataPointerTable_1B::
     dw   Music01
     dw   Music02
@@ -128,38 +131,40 @@ MusicDataPointerTable_1B::
     dw   Music0e
     dw   Music0f
     dw   Music10
-    dw   Music11
-    dw   Music12
-    dw   Music13
-    dw   Music14
-    dw   Music15
-    dw   Music16
-    dw   Music17
-    dw   Music18
-    dw   Music19
-    dw   Music1a
-    dw   Music1b
-    dw   Music1c
-    dw   Music1d
-    dw   Music1e
-    dw   Music1f
-    dw   Music20
-    dw   Music21
-    dw   Music22
-    dw   Music23
-    dw   Music24
-    dw   Music25
-    dw   Music26
-    dw   Music27
-    dw   Music28
-    dw   Music29
-    dw   Music2a
-    dw   Music2b
-    dw   Music2c
-    dw   Music2d
-    dw   Music2e
-    dw   Music2f
-    dw   Music30
+
+    dw   Music31
+    dw   Music32
+    dw   Music33
+    dw   Music34
+    dw   Music35
+    dw   Music36
+    dw   Music37
+    dw   Music38
+    dw   Music39
+    dw   Music3a
+    dw   Music3b
+    dw   Music3c
+    dw   Music3d
+    dw   Music3e
+    dw   Music3f
+    dw   Music40
+
+    dw   Music61
+    dw   Music62
+    dw   Music63
+    dw   Music64
+    dw   Music65
+    dw   Music66
+    dw   Music67
+    dw   Music68
+    dw   Music69
+    dw   Music6a
+    dw   Music6b
+    dw   Music6c
+    dw   Music6d
+    dw   Music6e
+    dw   Music6f
+    dw   Music70
 
 ; Input:
 ;   a:   Table index (starting at 1, not 0)
@@ -255,39 +260,39 @@ BeginMusicTrack_Dispatch_1B::
     ld   [$D3CA], a                               ; $4146: $EA $CA $D3
 
     cp   $11                                      ; $4149: $FE $11
-    jr   nc, jr_01B_414F                          ; $414B: $30 $02
+    jr   nc, .above10                          ; $414B: $30 $02
 
-    jr   jr_01B_4172                              ; $414D: $18 $23
+    jr   .playAudio                              ; $414D: $18 $23
 
-jr_01B_414F:
+.above10
     cp   $21                                      ; $414F: $FE $21
-    jr   nc, jr_01B_4156                          ; $4151: $30 $03
+    jr   nc, .above20                          ; $4151: $30 $03
 
-    jp   label_01B_402C                           ; $4153: $C3 $2C $40
+    jp   DontPlayAudio_1B                           ; $4153: $C3 $2C $40
 
-jr_01B_4156:
+.above20
     cp   $31                                      ; $4156: $FE $31
-    jr   nc, jr_01B_415D                          ; $4158: $30 $03
+    jr   nc, .above30                          ; $4158: $30 $03
 
-    jp   label_01B_402C                           ; $415A: $C3 $2C $40
+    jp   DontPlayAudio_1B                           ; $415A: $C3 $2C $40
 
-jr_01B_415D:
+.above30
     cp   $41                                      ; $415D: $FE $41
-    jp   nc, label_01B_4166                       ; $415F: $D2 $66 $41
+    jp   nc, .above40                       ; $415F: $D2 $66 $41
 
     add  $E0                                      ; $4162: $C6 $E0
-    jr   jr_01B_4172                              ; $4164: $18 $0C
+    jr   .playAudio                              ; $4164: $18 $0C
 
-label_01B_4166:
+.above40
     cp   $61                                      ; $4166: $FE $61
-    jp   c, label_01B_402C                        ; $4168: $DA $2C $40
+    jp   c, DontPlayAudio_1B                        ; $4168: $DA $2C $40
 
     cp   $70                                      ; $416B: $FE $70
-    jp   nc, label_01B_402C                       ; $416D: $D2 $2C $40
+    jp   nc, DontPlayAudio_1B                       ; $416D: $D2 $2C $40
 
     add  $C0                                      ; $4170: $C6 $C0
 
-jr_01B_4172:
+.playAudio
     dec  hl                                       ; $4172: $2B
     ld   [hl+], a ; [$D368]                       ; $4173: $22
 

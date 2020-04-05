@@ -321,13 +321,15 @@ def parseSoundChannelDefinition(ptr, channelIndex, endAddr, printPass):
 
 
 # Set MUSIC_BANK, MUSIC_PTR_TABLE, NUM_TRACKS before calling this.
-def dumpBank(startIndex):
+def dumpBank(indexTransformer):
     musicPtrList = []
 
     for i in range(0, NUM_TRACKS):
         addr = MUSIC_PTR_TABLE + 2*i
         ptr = bankedAddress(MUSIC_BANK, read16(rom, addr))
-        musicPtrList.append((ptr, i + startIndex))
+        newIndex =indexTransformer(i+1)
+        assert(newIndex != -1)
+        musicPtrList.append((ptr, newIndex))
         #print(hex(addr) + ': ' + hex(ptr))
 
     for j in range(len(musicPtrList)):
@@ -473,15 +475,33 @@ def dumpBank(startIndex):
             ptr += 2
 
 
+# Indexing of songs makes no sense and goes through some transformations (see
+# BeginMusicTrack_Dispatch functions)
+def indexTransformer1b(inp):
+    if inp <= 0x10:
+        return inp
+    elif inp <= 0x20:
+        return inp+0x20
+    elif inp <= 0x30:
+        return inp+0x40
+    return -1
+
+def indexTransformer1e(inp):
+    if inp <= 0x20:
+        return inp+0x10
+    elif inp <= 0x40:
+        return inp+0x20
+
+
 MUSIC_BANK = MUSIC_BANK_1
 MUSIC_PTR_TABLE = MUSIC_PTR_TABLE_1
 NUM_TRACKS = NUM_TRACKS_1
-dumpBank(1) # Music is 1-indexed
+dumpBank(indexTransformer1b) # Music is 1-indexed
 
 MUSIC_BANK = MUSIC_BANK_2
 MUSIC_PTR_TABLE = MUSIC_PTR_TABLE_2
 NUM_TRACKS = NUM_TRACKS_2
-dumpBank(0x31)
+dumpBank(indexTransformer1e)
 
 # Done with music definitions; now handle the waveform pointers we found
 

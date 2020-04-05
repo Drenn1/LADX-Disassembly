@@ -1,12 +1,12 @@
-Music18:: ; $6d000
+Music38:: ; $6d000
     db   $00
     dw   MusicSpeedData_1b_4ae6
     dw   SharedMusicChannelData ; 0x4b1a
     dw   SharedMusicChannelData ; 0x4b1a
-    dw   Music18Channel3 ; 0x500b
+    dw   Music38Channel3 ; 0x500b
     dw   $0000
 
-Music18Channel3:: ; $6d00b
+Music38Channel3:: ; $6d00b
     dw   ChannelDefinition_1b_500f
     dw   $0000
 
@@ -3594,23 +3594,23 @@ ChannelDefinition_1b_5edb:: ; $6dedb
     disable_unknown1
     end_def
 
-Music11:: ; $6df0a
+Music31:: ; $6df0a
     db   $00
     dw   MusicSpeedData_1b_4ac8
-    dw   Music11Channel1 ; 0x5f15
-    dw   Music11Channel2 ; 0x5f1b
-    dw   Music11Channel3 ; 0x5f21
+    dw   Music31Channel1 ; 0x5f15
+    dw   Music31Channel2 ; 0x5f1b
+    dw   Music31Channel3 ; 0x5f21
     dw   $0000
 
-Music11Channel1:: ; $6df15
+Music31Channel1:: ; $6df15
     dw   ChannelDefinition_1b_5f29
     dw   $ffff, MusicLoop_1b_5412
 
-Music11Channel2:: ; $6df1b
+Music31Channel2:: ; $6df1b
     dw   ChannelDefinition_1b_5f5c
     dw   $ffff, MusicLoop_1b_5420
 
-Music11Channel3:: ; $6df21
+Music31Channel3:: ; $6df21
     dw   ChannelDefinition_1b_6f41
     dw   ChannelDefinition_1b_5f85
     dw   $ffff, MusicLoop_1b_5430
@@ -3763,23 +3763,23 @@ ChannelDefinition_1b_5f85:: ; $6df85
     note    D_2
     end_def
 
-Music12:: ; $6dfc1
+Music32:: ; $6dfc1
     db   $00
     dw   MusicSpeedData_1b_4ae6
-    dw   Music12Channel1 ; 0x5fcc
-    dw   Music12Channel2 ; 0x5fd4
+    dw   Music32Channel1 ; 0x5fcc
+    dw   Music32Channel2 ; 0x5fd4
     dw   SharedMusicChannelData ; 0x4b1a
     dw   $0000
 
-Music12Channel1:: ; $6dfcc
+Music32Channel1:: ; $6dfcc
     dw   ChannelDefinition_1b_6fb6
     dw   ChannelDefinition_1b_5fdc
-    dw   $ffff, Music12Channel1
+    dw   $ffff, Music32Channel1
 
-Music12Channel2:: ; $6dfd4
+Music32Channel2:: ; $6dfd4
     dw   ChannelDefinition_1b_6fbb
     dw   ChannelDefinition_1b_5ffe
-    dw   $ffff, Music12Channel2
+    dw   $ffff, Music32Channel2
 
 ChannelDefinition_1b_5fdc:: ; $6dfdc
     notelen 2
@@ -3844,15 +3844,15 @@ ChannelDefinition_1b_5ffe:: ; $6dffe
     rest
     end_def
 
-Music13:: ; $6e017
+Music33:: ; $6e017
     db   $00
     dw   MusicSpeedData_1b_4ab9
-    dw   Music13Channel1 ; 0x6022
-    dw   Music13Channel2 ; 0x6038
+    dw   Music33Channel1 ; 0x6022
+    dw   Music33Channel2 ; 0x6038
     dw   SharedMusicChannelData ; 0x4b1a
     dw   $0000
 
-Music13Channel1:: ; $6e022
+Music33Channel1:: ; $6e022
     dw   ChannelDefinition_1b_6059
     dw   ChannelDefinition_1b_6065
     dw   ChannelDefinition_1b_604e
@@ -3862,9 +3862,9 @@ Music13Channel1:: ; $6e022
     dw   ChannelDefinition_1b_604e
     dw   ChannelDefinition_1b_604e
     dw   ChannelDefinition_1b_604e
-    dw   $ffff, Music13Channel1
+    dw   $ffff, Music33Channel1
 
-Music13Channel2:: ; $6e038
+Music33Channel2:: ; $6e038
     dw   ChannelDefinition_1b_607e
     dw   ChannelDefinition_1b_608a
     dw   ChannelDefinition_1b_606f
@@ -3874,7 +3874,7 @@ Music13Channel2:: ; $6e038
     dw   ChannelDefinition_1b_606f
     dw   ChannelDefinition_1b_606f
     dw   ChannelDefinition_1b_606f
-    dw   $ffff, Music13Channel2
+    dw   $ffff, Music33Channel2
 
 ChannelDefinition_1b_604e:: ; $6e04e
     begin_loop $0c
@@ -3958,15 +3958,15 @@ ChannelDefinition_1b_6090:: ; $6e090
     rest
     end_def
 
-Music14:: ; $6e096
+Music34:: ; $6e096
     db   $00
     dw   MusicSpeedData_1b_4ad7
     dw   SharedMusicChannelData ; 0x4b1a
-    dw   Music14Channel2 ; 0x60a1
-    dw   Music14Channel3 ; 0x60b1
+    dw   Music34Channel2 ; 0x60a1
+    dw   Music34Channel3 ; 0x60b1
     dw   $0000
 
-Music14Channel2:: ; $6e0a1
+Music34Channel2:: ; $6e0a1
     dw   ChannelDefinition_1b_60c1
     dw   ChannelDefinition_1b_60d9
     dw   ChannelDefinition_1b_60d9
@@ -3976,7 +3976,7 @@ Music14Channel2:: ; $6e0a1
     dw   ChannelDefinition_1b_7080
     dw   $0000
 
-Music14Channel3:: ; $6e0b1
+Music34Channel3:: ; $6e0b1
     dw   ChannelDefinition_1b_6f4b
     dw   ChannelDefinition_1b_611d
     dw   ChannelDefinition_1b_6129
@@ -4150,15 +4150,15 @@ ChannelDefinition_1b_6159:: ; $6e159
     rest
     end_def
 
-Music15:: ; $6e15f
+Music35:: ; $6e15f
     db   $00
     dw   MusicSpeedData_1b_4ad7
-    dw   Music15Channel1 ; 0x616a
-    dw   Music15Channel2 ; 0x6176
-    dw   Music15Channel3 ; 0x6182
+    dw   Music35Channel1 ; 0x616a
+    dw   Music35Channel2 ; 0x6176
+    dw   Music35Channel3 ; 0x6182
     dw   $0000
 
-Music15Channel1:: ; $6e16a
+Music35Channel1:: ; $6e16a
     dw   ChannelDefinition_1b_6fc0
     dw   ChannelDefinition_1b_618c
     dw   ChannelDefinition_1b_6fc5
@@ -4166,7 +4166,7 @@ Music15Channel1:: ; $6e16a
     dw   ChannelDefinition_1b_619a
     dw   $0000
 
-Music15Channel2:: ; $6e176
+Music35Channel2:: ; $6e176
     dw   ChannelDefinition_1b_6fc0
     dw   ChannelDefinition_1b_61c8
     dw   ChannelDefinition_1b_6fc5
@@ -4174,7 +4174,7 @@ Music15Channel2:: ; $6e176
     dw   ChannelDefinition_1b_61d6
     dw   $0000
 
-Music15Channel3:: ; $6e182
+Music35Channel3:: ; $6e182
     dw   ChannelDefinition_1b_6f70
     dw   ChannelDefinition_1b_6204
     dw   ChannelDefinition_1b_6211
@@ -4377,15 +4377,15 @@ ChannelDefinition_1b_6211:: ; $6e211
     note    C_4
     end_def
 
-Music16:: ; $6e241
+Music36:: ; $6e241
     db   $00
     dw   MusicSpeedData_1b_4ad7
     dw   SharedMusicChannelData ; 0x4b1a
-    dw   Music16Channel2 ; 0x624c
-    dw   Music16Channel3 ; 0x625c
+    dw   Music36Channel2 ; 0x624c
+    dw   Music36Channel3 ; 0x625c
     dw   $0000
 
-Music16Channel2:: ; $6e24c
+Music36Channel2:: ; $6e24c
     dw   ChannelDefinition_1b_626c
     dw   ChannelDefinition_1b_6271
     dw   ChannelDefinition_1b_6fa2
@@ -4395,7 +4395,7 @@ Music16Channel2:: ; $6e24c
     dw   ChannelDefinition_1b_62ba
     dw   $0000
 
-Music16Channel3:: ; $6e25c
+Music36Channel3:: ; $6e25c
     dw   ChannelDefinition_1b_6f55
     dw   ChannelDefinition_1b_62c7
     dw   ChannelDefinition_1b_6f4b
@@ -4585,15 +4585,15 @@ ChannelDefinition_1b_6300:: ; $6e300
     note    D#3
     end_def
 
-Music19:: ; $6e315
+Music39:: ; $6e315
     db   $00
     dw   MusicSpeedData_1b_4ab9
-    dw   Music19Channel1 ; 0x6320
-    dw   Music19Channel2 ; 0x633a
-    dw   Music19Channel3 ; 0x6350
-    dw   Music19Channel4 ; 0x6364
+    dw   Music39Channel1 ; 0x6320
+    dw   Music39Channel2 ; 0x633a
+    dw   Music39Channel3 ; 0x6350
+    dw   Music39Channel4 ; 0x6364
 
-Music19Channel1:: ; $6e320
+Music39Channel1:: ; $6e320
     dw   ChannelDefinition_1b_706b
     dw   ChannelDefinition_1b_6fac
     dw   ChannelDefinition_1b_636e
@@ -4609,7 +4609,7 @@ MusicLoop_1b_632a:: ; $6e32a
     dw   ChannelDefinition_1b_6394
     dw   $ffff, MusicLoop_1b_632a
 
-Music19Channel2:: ; $6e33a
+Music39Channel2:: ; $6e33a
     dw   ChannelDefinition_1b_6fac
     dw   ChannelDefinition_1b_63a3
     dw   ChannelDefinition_1b_63b2
@@ -4623,7 +4623,7 @@ MusicLoop_1b_6344:: ; $6e344
     dw   ChannelDefinition_1b_63d6
     dw   $ffff, MusicLoop_1b_6344
 
-Music19Channel3:: ; $6e350
+Music39Channel3:: ; $6e350
     dw   ChannelDefinition_1b_6f46
     dw   ChannelDefinition_1b_63e5
     dw   ChannelDefinition_1b_7061
@@ -4636,7 +4636,7 @@ MusicLoop_1b_635a:: ; $6e35a
     dw   ChannelDefinition_1b_6404
     dw   $ffff, MusicLoop_1b_635a
 
-Music19Channel4:: ; $6e364
+Music39Channel4:: ; $6e364
     dw   ChannelDefinition_1b_6420
     dw   ChannelDefinition_1b_6428
 
@@ -4882,28 +4882,28 @@ ChannelDefinition_1b_642e:: ; $6e42e
 
     end_def
 
-Music1a:: ; $6e43e
+Music3a:: ; $6e43e
     db   $00
     dw   MusicSpeedData_1b_4af5
     dw   SharedMusicChannelData ; 0x4b1a
-    dw   Music1aChannel2 ; 0x6449
-    dw   Music1aChannel3 ; 0x6453
-    dw   Music1aChannel4 ; 0x645b
+    dw   Music3aChannel2 ; 0x6449
+    dw   Music3aChannel3 ; 0x6453
+    dw   Music3aChannel4 ; 0x645b
 
-Music1aChannel2:: ; $6e449
+Music3aChannel2:: ; $6e449
     dw   ChannelDefinition_1b_6fb6
     dw   ChannelDefinition_1b_6461
     dw   ChannelDefinition_1b_6480
-    dw   $ffff, Music1aChannel2
+    dw   $ffff, Music3aChannel2
 
-Music1aChannel3:: ; $6e453
+Music3aChannel3:: ; $6e453
     dw   ChannelDefinition_1b_6f6b
     dw   ChannelDefinition_1b_64b5
-    dw   $ffff, Music1aChannel3
+    dw   $ffff, Music3aChannel3
 
-Music1aChannel4:: ; $6e45b
+Music3aChannel4:: ; $6e45b
     dw   ChannelDefinition_1b_64d0
-    dw   $ffff, Music1aChannel4
+    dw   $ffff, Music3aChannel4
 
 ChannelDefinition_1b_6461:: ; $6e461
     notelen 4
@@ -5037,25 +5037,25 @@ ChannelDefinition_1b_64d0:: ; $6e4d0
 
     end_def
 
-Music1b:: ; $6e4df
+Music3b:: ; $6e4df
     db   $00
     dw   MusicSpeedData_1b_4ab9
-    dw   Music1bChannel1 ; 0x64ea
-    dw   Music1bChannel2 ; 0x64f0
-    dw   Music1bChannel3 ; 0x64f6
+    dw   Music3bChannel1 ; 0x64ea
+    dw   Music3bChannel2 ; 0x64f0
+    dw   Music3bChannel3 ; 0x64f6
     dw   $0000
 
-Music1bChannel1:: ; $6e4ea
+Music3bChannel1:: ; $6e4ea
     dw   ChannelDefinition_1b_6fcf
     dw   ChannelDefinition_1b_64fc
     dw   $0000
 
-Music1bChannel2:: ; $6e4f0
+Music3bChannel2:: ; $6e4f0
     dw   ChannelDefinition_1b_6fcf
     dw   ChannelDefinition_1b_6503
     dw   $0000
 
-Music1bChannel3:: ; $6e4f6
+Music3bChannel3:: ; $6e4f6
     dw   ChannelDefinition_1b_6f6b
     dw   ChannelDefinition_1b_650a
     dw   $0000
@@ -5089,15 +5089,15 @@ ChannelDefinition_1b_650a:: ; $6e50a
     note    D_3
     end_def
 
-Music1d:: ; $6e513
+Music3d:: ; $6e513
     db   $00
     dw   MusicSpeedData_1b_4ae6
-    dw   Music1dChannel1 ; 0x651e
-    dw   Music1dChannel2 ; 0x655e
-    dw   Music1dChannel3 ; 0x65aa
-    dw   Music1dChannel4 ; 0x65f8
+    dw   Music3dChannel1 ; 0x651e
+    dw   Music3dChannel2 ; 0x655e
+    dw   Music3dChannel3 ; 0x65aa
+    dw   Music3dChannel4 ; 0x65f8
 
-Music1dChannel1:: ; $6e51e
+Music3dChannel1:: ; $6e51e
     dw   ChannelDefinition_1b_704a
     dw   ChannelDefinition_1b_703c
     dw   ChannelDefinition_1b_6656
@@ -5131,7 +5131,7 @@ Music1dChannel1:: ; $6e51e
     dw   ChannelDefinition_1b_6880
     dw   $0000
 
-Music1dChannel2:: ; $6e55e
+Music3dChannel2:: ; $6e55e
     dw   ChannelDefinition_1b_704a
     dw   ChannelDefinition_1b_6fe8
     dw   ChannelDefinition_1b_688f
@@ -5171,7 +5171,7 @@ Music1dChannel2:: ; $6e55e
     dw   ChannelDefinition_1b_6a2d
     dw   $0000
 
-Music1dChannel3:: ; $6e5aa
+Music3dChannel3:: ; $6e5aa
     dw   ChannelDefinition_1b_704a
     dw   ChannelDefinition_1b_707a
     dw   ChannelDefinition_1b_6a3c
@@ -5212,7 +5212,7 @@ Music1dChannel3:: ; $6e5aa
     dw   ChannelDefinition_1b_6bba
     dw   $0000
 
-Music1dChannel4:: ; $6e5f8
+Music3dChannel4:: ; $6e5f8
     dw   ChannelDefinition_1b_7052
     dw   ChannelDefinition_1b_6bc5
     dw   ChannelDefinition_1b_709f
@@ -6723,15 +6723,15 @@ ChannelDefinition_1b_6c10:: ; $6ec10
     rest
     end_def
 
-Music1e:: ; $6ec1b
+Music3e:: ; $6ec1b
     db   $00
     dw   MusicSpeedData_1b_4ab9
-    dw   Music1eChannel1 ; 0x6c26
-    dw   Music1eChannel2 ; 0x6c38
-    dw   Music1eChannel3 ; 0x6c4a
+    dw   Music3eChannel1 ; 0x6c26
+    dw   Music3eChannel2 ; 0x6c38
+    dw   Music3eChannel3 ; 0x6c4a
     dw   $0000
 
-Music1eChannel1:: ; $6ec26
+Music3eChannel1:: ; $6ec26
     dw   ChannelDefinition_1b_6c50
     dw   ChannelDefinition_1b_6c55
     dw   ChannelDefinition_1b_6c55
@@ -6741,7 +6741,7 @@ Music1eChannel1:: ; $6ec26
     dw   ChannelDefinition_1b_6c55
     dw   $ffff, Music0eChannel1
 
-Music1eChannel2:: ; $6ec38
+Music3eChannel2:: ; $6ec38
     dw   ChannelDefinition_1b_6c50
     dw   ChannelDefinition_1b_6c5f
     dw   ChannelDefinition_1b_6c5f
@@ -6751,7 +6751,7 @@ Music1eChannel2:: ; $6ec38
     dw   ChannelDefinition_1b_6c5f
     dw   $ffff, Music0eChannel2
 
-Music1eChannel3:: ; $6ec4a
+Music3eChannel3:: ; $6ec4a
     dw   ChannelDefinition_1b_7061
     dw   $ffff, Music0eChannel3
 
@@ -6783,15 +6783,15 @@ ChannelDefinition_1b_6c5f:: ; $6ec5f
     note    A#3
     end_def
 
-Music1f:: ; $6ec69
+Music3f:: ; $6ec69
     db   $00
     dw   MusicSpeedData_1b_4ad7
-    dw   Music1fChannel1 ; 0x6c74
-    dw   Music1fChannel2 ; 0x6c94
-    dw   Music1fChannel3 ; 0x6cb8
-    dw   Music1fChannel4 ; 0x6cd8
+    dw   Music3fChannel1 ; 0x6c74
+    dw   Music3fChannel2 ; 0x6c94
+    dw   Music3fChannel3 ; 0x6cb8
+    dw   Music3fChannel4 ; 0x6cd8
 
-Music1fChannel1:: ; $6ec74
+Music3fChannel1:: ; $6ec74
     dw   ChannelDefinition_1b_7061
     dw   ChannelDefinition_1b_6cf6
     dw   ChannelDefinition_1b_6e00
@@ -6808,7 +6808,7 @@ Music1fChannel1:: ; $6ec74
     dw   ChannelDefinition_1b_6df8
     dw   $ffff, MusicLoop_1b_708f
 
-Music1fChannel2:: ; $6ec94
+Music3fChannel2:: ; $6ec94
     dw   ChannelDefinition_1b_7061
     dw   ChannelDefinition_1b_6d81
     dw   ChannelDefinition_1b_6e00
@@ -6827,7 +6827,7 @@ Music1fChannel2:: ; $6ec94
     dw   ChannelDefinition_1b_6df8
     dw   $ffff, MusicLoop_1b_708f
 
-Music1fChannel3:: ; $6ecb8
+Music3fChannel3:: ; $6ecb8
     dw   ChannelDefinition_1b_7061
     dw   ChannelDefinition_1b_7015
     dw   ChannelDefinition_1b_6e00
@@ -6844,7 +6844,7 @@ Music1fChannel3:: ; $6ecb8
     dw   ChannelDefinition_1b_6df8
     dw   $ffff, MusicLoop_1b_708f
 
-Music1fChannel4:: ; $6ecd8
+Music3fChannel4:: ; $6ecd8
     dw   ChannelDefinition_1b_6e4a
     dw   ChannelDefinition_1b_6e56
     dw   ChannelDefinition_1b_6e56
