@@ -111,7 +111,7 @@ jr_01B_406E:
     ld   [de], a                                  ; $4075: $12
     ret                                           ; $4076: $C9
 
-MusicDataPointerTable::
+MusicDataPointerTable_1B::
     dw   Music01
     dw   Music02
     dw   Music03
@@ -297,7 +297,7 @@ jr_01B_4172:
     ld   a, b                                     ; $417A: $78
     ld   [hl], a ; [$D369]                        ; $417B: $77
     ld   b, a                                     ; $417C: $47
-    ld   hl, MusicDataPointerTable                        ; $417D: $21 $77 $40
+    ld   hl, MusicDataPointerTable_1B                        ; $417D: $21 $77 $40
     and  $7F                                      ; $4180: $E6 $7F
     call GetMusicDataPtr_1B                            ; $4182: $CD $D7 $40
     call LoadMusicData_1B                            ; $4185: $CD $3C $43
@@ -1725,7 +1725,7 @@ NoiseFrequencyTable::
     db   $04, $08, $01, $01, $48
 
 
-include "data/music/music_tracks_data_3.asm"
+include "data/music/music_tracks_data_1b_1.asm"
 
 
 label_01B_4E2C:

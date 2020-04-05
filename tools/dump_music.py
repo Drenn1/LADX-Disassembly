@@ -50,17 +50,20 @@ def getChannelLabel(musicIndex, channelIndex, cptr):
     return 'Music{0}Channel{1}'.format(myhex(musicIndex), myhex(channelIndex, 1))
 
 def getChannelDefinitionLabel(musicIndex, channelIndex, ptr):
+    bank = ptr // 0x4000
     ptr = toGbPointer(ptr)
-    return 'ChannelDefinition{2}'.format(myhex(musicIndex), myhex(channelIndex, 1), myhex(ptr, 4))
+    return 'ChannelDefinition_{0}_{1}'.format(myhex(bank, 2), myhex(ptr, 4))
 
 def getLoopLabel(ptr):
     if dataSet.hasLabelAt(ptr):
         return dataSet.getFirstLabelAt(ptr)
+    bank = ptr // 0x4000
     ptr = toGbPointer(ptr)
-    return 'MusicLoop{0}'.format(myhex(ptr, 4))
+    return 'MusicLoop_{0}_{1}'.format(myhex(bank, 2), myhex(ptr, 4))
 
 def getSpeedDataLabel(ptr):
-    return 'MusicSpeedData' + myhex(toGbPointer(ptr))
+    bank = ptr // 0x4000
+    return 'MusicSpeedData_{0}_{1}'.format(myhex(bank), myhex(toGbPointer(ptr), 4))
 
 NOTE_STRINGS = [ 'C_','C#','D_','D#','E_','F_','F#','G_','G#','A_','A#','B_' ]
 
@@ -197,9 +200,12 @@ class DataSet:
 # Main program
 # ================================================================================
 
-MUSIC_BANK = 0x1b
-MUSIC_PTR_TABLE = bankedAddress(MUSIC_BANK, 0x0077)
-NUM_TRACKS = 0x30
+MUSIC_BANK_1 = 0x1b
+MUSIC_BANK_2 = 0x1e
+MUSIC_PTR_TABLE_1 = bankedAddress(MUSIC_BANK_1, 0x0077)
+MUSIC_PTR_TABLE_2 = bankedAddress(MUSIC_BANK_2, 0x007f)
+NUM_TRACKS_1 = 0x30
+NUM_TRACKS_2 = 0x40
 
 if len(sys.argv) < 2:
     print('Usage: {0} <rom.gbc>'.format(sys.argv[0]))
@@ -208,14 +214,6 @@ if len(sys.argv) < 2:
 f = open(sys.argv[1], 'rb')
 rom = bytearray(f.read())
 f.close()
-
-musicPtrList = []
-
-for i in range(1, NUM_TRACKS+1):
-    addr = MUSIC_PTR_TABLE + 2*(i-1) # Music is 1-indexed
-    ptr = bankedAddress(MUSIC_BANK, read16(rom, addr))
-    musicPtrList.append((ptr, i))
-    #print(hex(addr) + ': ' + hex(ptr))
 
 dataSet = DataSet()
 parsedMusicAddresses = set()
@@ -234,9 +232,12 @@ opNames = {
         0x9a: 'disable_envelope',
     }
 
+
 def parseSoundChannelDefinition(ptr, channelIndex, endAddr, printPass):
     out = ''
     inLoop = False
+
+    bank = ptr // 0x4000
 
     def addByteOperand():
         nonlocal out, ptr
@@ -269,7 +270,7 @@ def parseSoundChannelDefinition(ptr, channelIndex, endAddr, printPass):
             out += indent() + '{0}'.format(opNames[op])
             out += '\n'
         elif op == 0x9b:
-            if not (len(out) >= 2 and out[-1] == '\n' and out[-2] == '\n'):
+            if len(out) > 0 and not (len(out) >= 2 and out[-1] == '\n' and out[-2] == '\n'):
                 out += '\n'
             out += indent() + 'begin_loop ${0}\n'.format(myhex(rom[ptr]))
             ptr += 1
@@ -283,7 +284,7 @@ def parseSoundChannelDefinition(ptr, channelIndex, endAddr, printPass):
             out += indent() + 'next_loop\n\n'
         elif op == 0x9d:
             if channelIndex == 3:
-                waveformAddr = bankedAddress(MUSIC_BANK, read16(rom, ptr))
+                waveformAddr = bankedAddress(bank, read16(rom, ptr))
                 if not printPass:
                     waveformAddresses.add(waveformAddr)
                 waveformName = getWaveformName(waveformAddr)
@@ -317,141 +318,170 @@ def parseSoundChannelDefinition(ptr, channelIndex, endAddr, printPass):
             out += '\n'
     return (ptr, out)
 
-for j in range(len(musicPtrList)):
-    ptr,i = musicPtrList[j]
 
-    dataSet.addLabel(ptr, getMusicLabel(i))
-    if dataSet.hasDataAt(ptr):
-        continue
 
-    def printMusicHeader(data):
-        out = ''
-        ptr = data.startAddr
+# Set MUSIC_BANK, MUSIC_PTR_TABLE, NUM_TRACKS before calling this.
+def dumpBank(startIndex):
+    musicPtrList = []
 
-        if data.getSize() == 0: # Multiple pointers referencing same data
+    for i in range(0, NUM_TRACKS):
+        addr = MUSIC_PTR_TABLE + 2*i
+        ptr = bankedAddress(MUSIC_BANK, read16(rom, addr))
+        musicPtrList.append((ptr, i + startIndex))
+        #print(hex(addr) + ': ' + hex(ptr))
+
+    for j in range(len(musicPtrList)):
+        ptr,i = musicPtrList[j]
+
+        dataSet.addLabel(ptr, getMusicLabel(i))
+        if dataSet.hasDataAt(ptr):
+            continue
+
+        def printMusicHeader(data):
+            out = ''
+            ptr = data.startAddr
+            bank = ptr // 0x4000
+
+            if data.getSize() == 0: # Multiple pointers referencing same data
+                return out
+
+            out += '    db   $' + myhex(rom[ptr]) + '\n'
+            ptr += 1
+            out += '    dw   {0}\n'.format(getSpeedDataLabel(bankedAddress(bank, read16(rom, ptr))))
+            ptr += 2
+            for c in range(1, 5): # Sound channels
+                cptr = read16(rom, ptr)
+                if cptr == 0:
+                    out += '    dw   $0000\n'
+                else:
+                    out += '    dw   {0} ; {1}\n'.format(getChannelLabel(data.musicIndex, c, cptr), hex(cptr))
+                    #out += '    dw   $' + myhex(cptr, 4) + '\n'
+                ptr += 2
+            assert(data.endAddr == ptr)
             return out
 
-        out += '    db   $' + myhex(rom[ptr]) + '\n'
+        musicHeader = Data(ptr, printMusicHeader)
+        musicHeader.musicIndex = i
+        dataSet.addData(musicHeader)
         ptr += 1
-        out += '    dw   {0}\n'.format(getSpeedDataLabel(read16(rom, ptr)))
+
+        # Don't parse the data more than once
+        if ptr in parsedMusicAddresses:
+            continue
+        parsedMusicAddresses.add(ptr)
+
+        # Dump "speed" data
+        speedPtr = read16(rom, ptr)
+        assert(speedPtr != 0)
+        speedPtr = bankedAddress(MUSIC_BANK, speedPtr)
+        if not dataSet.hasDataAt(speedPtr):
+            speedData = Data(speedPtr, Data.printAsByteString)
+            speedData.setLabel(getSpeedDataLabel(speedPtr))
+            dataSet.addData(speedData)
+
+        # Dump sound channels
         ptr += 2
-        for c in range(1, 5): # Sound channels
-            cptr = read16(rom, ptr)
-            if cptr == 0:
-                out += '    dw   $0000\n'
+
+        def parseSoundChannelData(channel, cptr):
+            if channel == -1:
+                label = getLoopLabel(cptr)
             else:
-                out += '    dw   {0} ; {1}\n'.format(getChannelLabel(data.musicIndex, c, cptr), hex(cptr))
-                #out += '    dw   $' + myhex(cptr, 4) + '\n'
-            ptr += 2
-        assert(data.endAddr == ptr)
-        return out
+                label = getChannelLabel(i, channel, cptr)
 
-    musicHeader = Data(ptr, printMusicHeader)
-    musicHeader.musicIndex = i
-    dataSet.addData(musicHeader)
-    ptr += 1
+            if dataSet.hasDataAt(cptr):
+                if not dataSet.hasLabel(label):
+                    dataSet.addLabel(cptr, label)
+                return # Already processed this
 
-    # Don't parse the data more than once
-    if ptr in parsedMusicAddresses:
-        continue
-    parsedMusicAddresses.add(ptr)
-
-    # Dump "speed" data
-    speedPtr = read16(rom, ptr)
-    assert(speedPtr != 0)
-    speedPtr = bankedAddress(MUSIC_BANK, speedPtr)
-    if not dataSet.hasDataAt(speedPtr):
-        speedData = Data(speedPtr, Data.printAsByteString)
-        speedData.setLabel(getSpeedDataLabel(speedPtr))
-        dataSet.addData(speedData)
-
-    # Dump sound channels
-    ptr += 2
-
-    def parseSoundChannelData(channel, cptr):
-        if dataSet.hasDataAt(cptr):
-            return # Already processed this
-
-        def printSoundChannelData(data):
-            out = ''
-            if data.getSize() == 0:
+            def printSoundChannelData(data):
+                out = ''
+                if data.getSize() == 0:
+                    return out
+                cptr = data.startAddr
+                bank = cptr // 0x4000
+                while True:
+                    if cptr >= data.endAddr: # Loops can cause this to happen
+                        break
+                    dptr = read16(rom, cptr)
+                    cptr += 2
+                    if dptr == 0:
+                        out += '    dw   $0000\n'
+                        break
+                    elif dptr == 0xffff:
+                        loopPtr = bankedAddress(bank, read16(rom, cptr))
+                        cptr += 2
+                        out += '    dw   $ffff, ' + getLoopLabel(loopPtr) + '\n'
+                        break
+                    else:
+                        fullPtr = bankedAddress(bank, dptr)
+                        out += '    dw   {0}\n'.format(
+                                getChannelDefinitionLabel(data.musicIndex, data.channelIndex, fullPtr))
+                assert(cptr <= data.endAddr)
+                if cptr < data.endAddr:
+                    out += '; UNREFERENCED DATA\n'
+                    out += getByteString(rom[cptr:data.endAddr])
                 return out
-            cptr = data.startAddr
+
+            def printSoundChannelDefinitionData(data):
+                out = ''
+                ptr = data.startAddr
+
+                ptr, out = parseSoundChannelDefinition(data.startAddr, data.channelIndex, data.endAddr, True)
+
+                assert(ptr <= data.endAddr)
+                if ptr < data.endAddr:
+                    out += '; UNREFERENCED DATA\n'
+                    out += getByteString(rom[ptr:data.endAddr])
+                return out
+
+            data = Data(cptr, printSoundChannelData)
+            data.musicIndex = i
+            data.channelIndex = channel
+            dataSet.addData(data)
+            dataSet.addLabel(cptr, label)
+
+            # Dump "sound definitions"
             while True:
-                if cptr >= data.endAddr: # Loops can cause this to happen
-                    break
                 dptr = read16(rom, cptr)
                 cptr += 2
                 if dptr == 0:
-                    out += '    dw   $0000\n'
                     break
                 elif dptr == 0xffff:
                     loopPtr = bankedAddress(MUSIC_BANK, read16(rom, cptr))
                     cptr += 2
-                    out += '    dw   $ffff, ' + getLoopLabel(loopPtr) + '\n'
+                    parseSoundChannelData(-1, loopPtr) # Recursive call
                     break
                 else:
-                    out += '    dw   {0}\n'.format(
-                            getChannelDefinitionLabel(data.musicIndex, data.channelIndex, dptr))
-            assert(cptr <= data.endAddr)
-            if cptr < data.endAddr:
-                out += '; UNREFERENCED DATA\n'
-                out += getByteString(rom[cptr:data.endAddr])
-            return out
+                    fullPtr = bankedAddress(MUSIC_BANK, dptr)
+                    label = getChannelDefinitionLabel(i, channel, fullPtr)
+                    if not dataSet.hasLabel(label):
+                        dptr = bankedAddress(MUSIC_BANK, dptr)
+                        data = Data(dptr, printSoundChannelDefinitionData)
+                        data.channelIndex = channel
+                        data.setLabel(label)
+                        dataSet.addData(data)
+                        parseSoundChannelDefinition(dptr, channel, -1, False)
 
-        def printSoundChannelDefinitionData(data):
-            out = ''
-            ptr = data.startAddr
+        # End of "parseSoundChannelData" function definition
 
-            ptr, out = parseSoundChannelDefinition(data.startAddr, data.channelIndex, data.endAddr, True)
+        for c in range(1,5):
+            cptr = read16(rom, ptr)
+            if cptr == 0:
+                continue
+            cptr = bankedAddress(MUSIC_BANK, cptr)
+            parseSoundChannelData(c, cptr)
+            ptr += 2
 
-            assert(ptr <= data.endAddr)
-            if ptr < data.endAddr:
-                out += '; UNREFERENCED DATA\n'
-                out += getByteString(rom[ptr:data.endAddr])
-            return out
 
-        data = Data(cptr, printSoundChannelData)
-        data.musicIndex = i
-        data.channelIndex = channel
-        dataSet.addData(data)
-        if channel == -1:
-            label = getLoopLabel(cptr)
-        else:
-            label = getChannelLabel(i, channel, cptr)
-        dataSet.addLabel(cptr, label)
+MUSIC_BANK = MUSIC_BANK_1
+MUSIC_PTR_TABLE = MUSIC_PTR_TABLE_1
+NUM_TRACKS = NUM_TRACKS_1
+dumpBank(1) # Music is 1-indexed
 
-        # Dump "sound definitions"
-        while True:
-            dptr = read16(rom, cptr)
-            cptr += 2
-            if dptr == 0:
-                break
-            elif dptr == 0xffff:
-                loopPtr = bankedAddress(MUSIC_BANK, read16(rom, cptr))
-                cptr += 2
-                parseSoundChannelData(-1, loopPtr) # Recursive call
-                break
-            else:
-                label = getChannelDefinitionLabel(i, channel, dptr)
-                if not dataSet.hasLabel(label):
-                    dptr = bankedAddress(MUSIC_BANK, dptr)
-                    data = Data(dptr, printSoundChannelDefinitionData)
-                    data.channelIndex = channel
-                    data.setLabel(label)
-                    dataSet.addData(data)
-                    parseSoundChannelDefinition(dptr, channel, -1, False)
-
-    # End of "parseSoundChannelData" function definition
-
-    for c in range(1,5):
-        cptr = read16(rom, ptr)
-        if cptr == 0:
-            continue
-        cptr = bankedAddress(MUSIC_BANK, cptr)
-        parseSoundChannelData(c, cptr)
-        ptr += 2
-
+MUSIC_BANK = MUSIC_BANK_2
+MUSIC_PTR_TABLE = MUSIC_PTR_TABLE_2
+NUM_TRACKS = NUM_TRACKS_2
+dumpBank(0x31)
 
 # Done with music definitions; now handle the waveform pointers we found
 
@@ -474,17 +504,32 @@ for addr in waveformAddresses:
 
 
 # Hardcoded offsets for start and end of sound data segments
-f = open('src/data/music/music_tracks_data_3.asm', 'w')
+f = open('src/data/music/music_tracks_data_1b_1.asm', 'w')
 s = dataSet.printDataRange(0x6caaa, 0x6ce2c)
 f.write(s)
 f.close()
 
-f = open('src/data/music/music_tracks_data_1.asm', 'w')
+f = open('src/data/music/music_tracks_data_1b_2.asm', 'w')
 s = dataSet.printDataRange(0x6d000, 0x6f0a7)
 f.write(s)
 f.close()
 
-f = open('src/data/music/music_tracks_data_4.asm', 'w')
-s = dataSet.printDataRange(0x6f100, 0x6f37a)
+f = open('src/data/music/music_tracks_data_1b_3.asm', 'w')
+s = dataSet.printDataRange(0x6f100, 0x6f379)
+f.write(s)
+f.close()
+
+f = open('src/data/music/music_tracks_data_1e_1.asm', 'w')
+s = dataSet.printDataRange(0x78a9d, 0x78cff)
+f.write(s)
+f.close()
+
+f = open('src/data/music/music_tracks_data_1e_2.asm', 'w')
+s = dataSet.printDataRange(0x79000, 0x7aeb8)
+f.write(s)
+f.close()
+
+f = open('src/data/music/music_tracks_data_1e_3.asm', 'w')
+s = dataSet.printDataRange(0x7b000, 0x7bf9a)
 f.write(s)
 f.close()

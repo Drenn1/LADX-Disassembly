@@ -15,46 +15,46 @@ Music2e:: ; $6f100
 Music2f:: ; $6f100
 Music30:: ; $6f100
     db   $00
-    dw   MusicSpeedData4ac8
+    dw   MusicSpeedData_1b_4ac8
     dw   Music21Channel1 ; 0x710b
     dw   Music21Channel2 ; 0x7111
     dw   Music21Channel3 ; 0x711d
     dw   $0000
 
 Music21Channel1:: ; $6f10b
-    dw   ChannelDefinition712f
-    dw   $ffff, MusicLoop7113
+    dw   ChannelDefinition_1b_712f
+    dw   $ffff, MusicLoop_1b_7113
 
 Music21Channel2:: ; $6f111
-    dw   ChannelDefinition7137
+    dw   ChannelDefinition_1b_7137
 
-MusicLoop7113:: ; $6f113
-    dw   ChannelDefinition713c
-    dw   ChannelDefinition713c
-    dw   ChannelDefinition71b2
-    dw   $ffff, MusicLoop7113
+MusicLoop_1b_7113:: ; $6f113
+    dw   ChannelDefinition_1b_713c
+    dw   ChannelDefinition_1b_713c
+    dw   ChannelDefinition_1b_71b2
+    dw   $ffff, MusicLoop_1b_7113
 
 Music21Channel3:: ; $6f11d
-    dw   ChannelDefinition7228
-    dw   ChannelDefinition722d
-    dw   ChannelDefinition722d
-    dw   ChannelDefinition726a
+    dw   ChannelDefinition_1b_7228
+    dw   ChannelDefinition_1b_722d
+    dw   ChannelDefinition_1b_722d
+    dw   ChannelDefinition_1b_726a
     dw   $ffff, Music21Channel3
 ; UNREFERENCED DATA
     db   $22, $73, $ff, $ff, $29, $71
 
-ChannelDefinition712f:: ; $6f12f
+ChannelDefinition_1b_712f:: ; $6f12f
     db   $9d, $37, $00, $80
     notelen 10
     rest
     rest
     end_def
 
-ChannelDefinition7137:: ; $6f137
+ChannelDefinition_1b_7137:: ; $6f137
     db   $9d, $47, $00, $80
     end_def
 
-ChannelDefinition713c:: ; $6f13c
+ChannelDefinition_1b_713c:: ; $6f13c
     notelen 2
     note    G_4
     note    A#4
@@ -174,7 +174,7 @@ ChannelDefinition713c:: ; $6f13c
     note    C_6
     end_def
 
-ChannelDefinition71b2:: ; $6f1b2
+ChannelDefinition_1b_71b2:: ; $6f1b2
     notelen 2
     note    D_5
     note    A#4
@@ -294,11 +294,11 @@ ChannelDefinition71b2:: ; $6f1b2
     note    C_6
     end_def
 
-ChannelDefinition7228:: ; $6f228
+ChannelDefinition_1b_7228:: ; $6f228
     set_waveform waveform_1b_7349, $21
     end_def
 
-ChannelDefinition722d:: ; $6f22d
+ChannelDefinition_1b_722d:: ; $6f22d
     notelen 5
     note    G_2
     notelen 4
@@ -361,7 +361,7 @@ ChannelDefinition722d:: ; $6f22d
     note    F#2
     end_def
 
-ChannelDefinition726a:: ; $6f26a
+ChannelDefinition_1b_726a:: ; $6f26a
     set_waveform waveform_1b_7359, $40
     enable_envelope
     notelen 2
@@ -511,5 +511,3 @@ waveform_1b_7359:: ; $6f359
 
 waveform_1b_7369:: ; $6f369
     db   $05, $05, $05, $05, $05, $05, $05, $05, $05, $05, $05, $05, $05, $05, $05, $05
-; UNREFERENCED DATA
-    db   $00
